@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:git_hub_card/data/github_login.dart';
 import 'package:git_hub_card/domain/social_login.dart';
-import 'package:git_hub_card/presentation/login_state.dart';
+
+import 'login_state.dart';
 
 class LoginViewModel with ChangeNotifier {
   final SocialLogin _socialLogin = GithubLogin();
