@@ -29,24 +29,13 @@ class LanguageStampWidget extends StatelessWidget {
               backgroundColor: stampColor,
             ),
             child: Image.asset(
-              'assets/images/stamp_outline_1.png',
+              'assets/images/stamp_outline.png',
             ),
           ),
           Image.asset(
             stampImagePath,
             scale: scale,
           ),
-          // WidgetMask(
-          //   blendMode: BlendMode.modulate,
-          //   childSaveLayer: true,
-          //   mask: const CircleAvatar(
-          //     radius: 150,
-          //     backgroundColor: Colors.lightBlueAccent,
-          //   ),
-          //   child: Container(
-          //       width: 150,
-          //       child: Image.asset('assets/images/flutter_logo_120.png')),
-          // ),
         ],
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/data/github_login.dart';
-import 'package:git_hub_card/domain/social_login.dart';
+import 'package:git_hub_card/domain/social_login/social_login.dart';
+import '../../data/login/github_login.dart';
 
 import 'login_state.dart';
 
