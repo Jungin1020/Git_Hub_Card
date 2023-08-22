@@ -1,5 +1,5 @@
 abstract interface class SocialLogin {
-  Future<bool> login();
+  Future<String> login();
 
   Future<bool> logout();
 }

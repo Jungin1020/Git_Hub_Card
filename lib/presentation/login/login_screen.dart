@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_hub_card/presentation/login/login_view_model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'login_state.dart';
 
@@ -13,6 +14,7 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
             child: switch (state.isLogin) {
@@ -29,8 +31,18 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onTap: () {
-                    viewModel.login();
+                  onTap: () async {
+                    await viewModel.login();
+                    // final currentUser = await viewModel.fetchUser();
+                    if (!context.mounted) return;
+                    await context.push('/card');
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => CardScreen(
+                    //       currentUser: currentUser,
+                    //     ),
+                    //   ),
+                    // );
                   },
                 ),
               true => GestureDetector(

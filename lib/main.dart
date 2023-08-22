@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:git_hub_card/presentation/card/card_screen.dart';
-import 'package:git_hub_card/presentation/login/login_view_model.dart';
-import 'package:provider/provider.dart';
+import 'package:git_hub_card/core/router.dart';
 
 import 'firebase_options.dart';
 
@@ -26,17 +24,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
       ),
-      // themeMode: ThemeMode.dark,
-      // darkTheme: ThemeData.dark(),
-      home: ChangeNotifierProvider(
-        create: (_) => LoginViewModel(),
-        child: const CardScreen(),
-      ),
+      themeMode: ThemeMode.dark,
+      darkTheme: ThemeData.dark(),
+      // home: ChangeNotifierProvider(
+      //   create: (_) =>
+      //       LoginViewModel(GithubRepositoryImpl(FirebaseAuth.instance)),
+      //   child: const LoginScreen(),
+      // ),
+      // home: const LoginScreen(),
     );
   }
 }

@@ -1,14 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:git_hub_card/domain/social_login.dart';
+import 'package:git_hub_card/domain/social_login/social_login.dart';
 
 class GithubLogin implements SocialLogin {
   @override
-  Future<bool> login() async {
+  Future<String> login() async {
     try {
-      await _signInWithGitHub();
-      return true;
+      final result = await _signInWithGitHub();
+      final githubToken = result.credential?.accessToken ?? '';
+
+      return githubToken;
     } catch (e) {
-      return false;
+      return '';
     }
   }
 
@@ -17,6 +19,7 @@ class GithubLogin implements SocialLogin {
     try {
       // await FirebaseAuth.instance.currentUser!.delete();
       // await FirebaseAuth.instance.currentUser!.getIdToken(true);
+
       await FirebaseAuth.instance.signOut();
 
       return true;

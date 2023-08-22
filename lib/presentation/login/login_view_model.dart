@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/domain/social_login/social_login.dart';
-import '../../data/login/github_login.dart';
 
 import 'login_state.dart';
 
 class LoginViewModel with ChangeNotifier {
-  final SocialLogin _socialLogin = GithubLogin();
+  // final SocialLogin _socialLogin = GithubLogin();
   LoginState _state = const LoginState();
+
   LoginState get state => _state;
 
-  void login() async {
+  Future<void> login() async {
     _state = state.copyWith(
-        isLogin: await _socialLogin.login(),
-        loginPlatform: LoginPlatform.github);
+      // token: await _socialLogin.login(),
+      isLogin: true,
+      loginPlatform: LoginPlatform.github,
+    );
     notifyListeners();
   }
 
-  void logout() async {
-    _state = state.copyWith(
-        isLogin: !(await _socialLogin.logout()),
-        loginPlatform: LoginPlatform.none);
+  Future<void> logout() async {
+    // await _socialLogin.logout();
+    _state = state.copyWith(isLogin: false, loginPlatform: LoginPlatform.none);
     notifyListeners();
   }
 }

@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:git_hub_card/presentation/components/language_stamp_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 import '../components/card_widget.dart';
@@ -13,10 +15,17 @@ class CardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+
+    final viewModel = context.watch<CardViewModel>();
+    // viewModel.fetchUser();
+    final state = viewModel.state;
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.topRight,
         children: [
+          RotatedBox(
+              quarterTurns: 1, child: Image.asset('assets/images/shadow.png')),
           RotatedBox(
               quarterTurns: 1, child: Image.asset('assets/images/shadow.png')),
           Center(
@@ -33,7 +42,7 @@ class CardScreen extends StatelessWidget {
                     height: 554,
                   ),
                 ),
-                const CardWidget(),
+                CardWidget(currentUser: state.currentUser!),
                 Positioned(
                   right: 60,
                   bottom: 125,
