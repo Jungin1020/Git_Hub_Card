@@ -10,6 +10,7 @@ part 'card_state.g.dart';
 class CardState with _$CardState {
   const factory CardState({
     @Default(false) bool isLoading,
+    @Default(false) bool isBottomMenu,
     @Default('') String token,
     CurrentUser? currentUser,
   }) = _CardState;

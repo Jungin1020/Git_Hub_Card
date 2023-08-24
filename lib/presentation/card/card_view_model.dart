@@ -22,4 +22,14 @@ class CardViewModel with ChangeNotifier {
     _state = state.copyWith(currentUser: user, isLoading: false);
     notifyListeners();
   }
+
+  void showBottomMenuBar() {
+    _state = state.copyWith(isBottomMenu: true);
+    notifyListeners();
+  }
+
+  void unShowBottomMenuBar() {
+    _state = state.copyWith(isBottomMenu: false);
+    notifyListeners();
+  }
 }
