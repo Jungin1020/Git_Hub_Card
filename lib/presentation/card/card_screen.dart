@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:git_hub_card/presentation/components/language_stamp_widget.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_mask/widget_mask.dart';
 
@@ -19,6 +20,10 @@ class CardScreen extends StatelessWidget {
     final viewModel = context.watch<CardViewModel>();
     // viewModel.fetchUser();
     final state = viewModel.state;
+    // currentUser 없으면 리턴
+    if (state.currentUser == null) {
+      return const Scaffold(backgroundColor: Color(0xff0D1116));
+    }
 
     return Scaffold(
       body: Stack(
@@ -106,6 +111,18 @@ class CardScreen extends StatelessWidget {
               ],
             ),
           ),
+          Positioned(
+            right: 10,
+            bottom: 50,
+            child: RotatedBox(
+              quarterTurns: 1,
+              child: IconButton(
+                icon: const Icon(Icons.menu_open_outlined),
+                color: Colors.grey,
+                onPressed: () {},
+              ),
+            ),
+          )
         ],
       ),
       backgroundColor: const Color(0xff0D1116),

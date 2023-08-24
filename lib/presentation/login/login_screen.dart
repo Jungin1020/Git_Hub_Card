@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:git_hub_card/core/auth/auth_provider.dart';
 import 'package:git_hub_card/presentation/login/login_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<LoginViewModel>();
-    LoginState state = viewModel.state;
+    final authProvider = context.watch<AuthProvider>();
+    // LoginState state = viewModel.state;
 
     return Scaffold(
         body: Column(
@@ -28,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 32),
-                  switch (state.isLogin) {
+                  switch (authProvider.isLogin) {
                     false => GestureDetector(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 80.0),
@@ -84,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                           child: const Text('Github Logout'),
                         ),
                         onTap: () {
-                          viewModel.logout();
+                          // viewModel.logout();
                         },
                       ),
                   },

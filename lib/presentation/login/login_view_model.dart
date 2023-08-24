@@ -10,18 +10,18 @@ class LoginViewModel with ChangeNotifier {
   Future<void> login() async {
     _state = state.copyWith(
       // token: await _socialLogin.login(),
-      isLogin: true,
+      // isLogin: true,
       loginPlatform: LoginPlatform.github,
     );
     notifyListeners();
   }
-
-  Future<void> logout() async {
-    // await _socialLogin.logout();
-    _state = state.copyWith(
-      isLogin: false,
-      loginPlatform: LoginPlatform.none,
-    );
-    notifyListeners();
-  }
+  //
+  // Future<void> logout() async {
+  //   // await _socialLogin.logout();
+  //   _state = state.copyWith(
+  //     // isLogin: false,
+  //     loginPlatform: LoginPlatform.none,
+  //   );
+  //   notifyListeners();
+  // }
 }

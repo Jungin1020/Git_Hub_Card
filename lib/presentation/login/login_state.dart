@@ -14,7 +14,7 @@ enum LoginPlatform {
 class LoginState with _$LoginState {
   const factory LoginState({
     @Default('') String token,
-    @Default(false) bool isLogin,
+    // @Default(false) bool isLogin,
     @Default(LoginPlatform.none) LoginPlatform loginPlatform,
   }) = _LoginState;
 
