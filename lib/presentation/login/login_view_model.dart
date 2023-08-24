@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'login_state.dart';
 
 class LoginViewModel with ChangeNotifier {
@@ -19,7 +18,10 @@ class LoginViewModel with ChangeNotifier {
 
   Future<void> logout() async {
     // await _socialLogin.logout();
-    _state = state.copyWith(isLogin: false, loginPlatform: LoginPlatform.none);
+    _state = state.copyWith(
+      isLogin: false,
+      loginPlatform: LoginPlatform.none,
+    );
     notifyListeners();
   }
 }

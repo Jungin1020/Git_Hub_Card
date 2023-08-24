@@ -19,15 +19,15 @@ class LoginScreen extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     'Welcome to Github Card!',
                     style: TextStyle(
-                        color: const Color(0xff04CFC8),
+                        color: Color(0xff04CFC8),
                         fontSize: 16,
                         fontFamily: 'NotoSans',
                         fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   switch (state.isLogin) {
                     false => GestureDetector(
                         child: Padding(
@@ -36,7 +36,6 @@ class LoginScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 20),
                             decoration: BoxDecoration(
-                              // color: Colors.blue, // 버튼의 배경색
                               borderRadius:
                                   BorderRadius.circular(10), // 둥근 모서리 반경
                               border: Border.all(
@@ -65,21 +64,12 @@ class LoginScreen extends StatelessWidget {
                         ),
                         onTap: () async {
                           await viewModel.login();
-                          // final currentUser = await viewModel.fetchUser();
                           if (!context.mounted) return;
                           await context.push('/card');
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => CardScreen(
-                          //       currentUser: currentUser,
-                          //     ),
-                          //   ),
-                          // );
                         },
                       ),
                     true => GestureDetector(
                         child: Container(
-                          child: const Text('Github Logout'),
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 20),
                           decoration: BoxDecoration(
@@ -91,6 +81,7 @@ class LoginScreen extends StatelessWidget {
                               width: 2, // 테두리 두께
                             ),
                           ),
+                          child: const Text('Github Logout'),
                         ),
                         onTap: () {
                           viewModel.logout();
