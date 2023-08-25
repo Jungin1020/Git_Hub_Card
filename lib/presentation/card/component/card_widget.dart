@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
+import 'package:git_hub_card/presentation/card/component/icon_and_info_widget.dart';
+
+import '../../../core/utils/utils.dart';
 
 class CardWidget extends StatelessWidget {
   const CardWidget({Key? key, required this.currentUser}) : super(key: key);
@@ -7,7 +10,17 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final utils = Utils();
+
+    final List<String> userInfos = [
+      currentUser.company,
+      currentUser.location,
+      currentUser.email,
+      currentUser.blog,
+      currentUser.twitter
+    ];
+
+    return SizedBox(
       width: 308,
       height: 554,
       // color: Colors.red,
@@ -36,6 +49,7 @@ class CardWidget extends StatelessWidget {
                           color: Colors.white.withOpacity(0.8),
                         ),
                       ),
+                      const SizedBox(height: 3),
                       Text(
                         currentUser.displayName,
                         style: TextStyle(
@@ -54,27 +68,13 @@ class CardWidget extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Row(children: [
-                Icon(Icons.location_on_outlined,
-                    color: Colors.grey.withOpacity(0.5)),
-                Text(currentUser.location,
-                    style: TextStyle(color: Colors.grey.withOpacity(0.5)))
-              ]),
-              Row(children: [
-                Icon(Icons.add, color: Colors.grey.withOpacity(0.5)),
-                Text('text1',
-                    style: TextStyle(color: Colors.grey.withOpacity(0.5)))
-              ]),
-              Row(children: [
-                Icon(Icons.add, color: Colors.grey.withOpacity(0.5)),
-                Text('text1',
-                    style: TextStyle(color: Colors.grey.withOpacity(0.5)))
-              ]),
-              Row(children: [
-                Icon(Icons.add, color: Colors.grey.withOpacity(0.5)),
-                Text('text1',
-                    style: TextStyle(color: Colors.grey.withOpacity(0.5)))
-              ]),
+              Column(
+                children: userInfos
+                    .where((e) => e.isNotEmpty)
+                    .map((e) => IconAndInfoWidget(
+                        icon: utils.icons[userInfos.indexOf(e)], info: e))
+                    .toList(),
+              ),
             ],
           ),
         ),

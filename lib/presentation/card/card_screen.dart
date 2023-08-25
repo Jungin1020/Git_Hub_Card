@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 import '../components/bottom_menu_widget.dart';
-import '../components/card_widget.dart';
+import 'component/card_widget.dart';
 
 class CardScreen extends StatelessWidget {
   const CardScreen({Key? key}) : super(key: key);
