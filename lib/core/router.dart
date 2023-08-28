@@ -7,6 +7,7 @@ import 'package:git_hub_card/presentation/login/login_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../data/repository/github_repo_repository_impl.dart';
 import '../presentation/card/card_view_model.dart';
 
 final router = GoRouter(
@@ -34,8 +35,12 @@ final router = GoRouter(
           providers: [
             ChangeNotifierProvider(create: (context) => AuthProvider()),
             ChangeNotifierProvider(
-                create: (context) =>
-                    CardViewModel(GithubRepositoryImpl(), GithubLogin())),
+              create: (context) => CardViewModel(
+                GithubRepositoryImpl(),
+                GithubLogin(),
+                GithubRepoRepositoryImpl(),
+              ),
+            ),
           ],
           child: const CardScreen(),
         );

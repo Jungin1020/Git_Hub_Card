@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:git_hub_card/domain/social_repository/social_repo_repository.dart';
 import '../../domain/social_login/social_login.dart';
 import '../../domain/social_repository/social_repository.dart';
 import 'card_state.dart';
 
 class CardViewModel with ChangeNotifier {
   final SocialRepository _repository;
+  final SocialRepoRepository _repoRepository;
 
   final SocialLogin _socialLogin;
 
-  CardViewModel(this._repository, this._socialLogin) {
+  CardViewModel(this._repository, this._socialLogin, this._repoRepository) {
     fetchUser();
   }
 
@@ -19,7 +21,9 @@ class CardViewModel with ChangeNotifier {
   Future<void> fetchUser() async {
     _state = state.copyWith(isLoading: true, token: await _socialLogin.login());
     final user = await _repository.getUser(state.token);
-    _state = state.copyWith(currentUser: user, isLoading: false);
+    final repos = await _repoRepository.getUserRepos(user.githubReposUrl);
+    _state = state.copyWith(
+        currentUser: user, currentUserRepo: repos, isLoading: false);
     notifyListeners();
   }
 

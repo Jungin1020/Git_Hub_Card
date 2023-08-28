@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:git_hub_card/domain/use_case/sort_languages_use_case.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:git_hub_card/presentation/components/language_stamp_widget.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ class CardScreen extends StatelessWidget {
     if (state.currentUser == null) {
       return const Scaffold(backgroundColor: Color(0xff0D1116));
     }
+
+    final languages = sortLanguagesUseCase(state.currentUserRepo!);
 
     final height = MediaQuery.of(context).size.height;
     final bottomBarHeight = height / 4;
@@ -60,7 +63,7 @@ class CardScreen extends StatelessWidget {
                     child: Transform.rotate(
                       // 90 = 1
                       angle: 45,
-                      child: const SizedBox(
+                      child: SizedBox(
                         width: 135,
                         height: 135,
                         child: Opacity(
@@ -68,8 +71,7 @@ class CardScreen extends StatelessWidget {
                           child: LanguageStampWidget(
                             scale: 1.65,
                             stampColor: Colors.lightBlueAccent,
-                            stampImagePath:
-                                'assets/images/flutter_logo_120.png',
+                            language: languages[0],
                           ),
                         ),
                       ),
@@ -81,15 +83,15 @@ class CardScreen extends StatelessWidget {
                     child: Transform.rotate(
                       // 90 = 1
                       angle: 2,
-                      child: const SizedBox(
+                      child: SizedBox(
                         width: 100,
                         height: 100,
                         child: Opacity(
                           opacity: 0.7,
                           child: LanguageStampWidget(
                             scale: 2.2,
-                            stampColor: Color(0xff3671A1),
-                            stampImagePath: 'assets/images/python_logo_120.png',
+                            stampColor: const Color(0xff3671A1),
+                            language: languages[1],
                           ),
                         ),
                       ),
@@ -101,20 +103,29 @@ class CardScreen extends StatelessWidget {
                     child: Transform.rotate(
                       // 90 = 1
                       angle: 1.55,
-                      child: const SizedBox(
+                      child: SizedBox(
                         width: 120,
                         height: 120,
                         child: Opacity(
                           opacity: 0.7,
                           child: LanguageStampWidget(
                             scale: 1.9,
-                            stampColor: Color(0xffF05033),
-                            stampImagePath: 'assets/images/git_logo_120.png',
+                            stampColor: const Color(0xffF05033),
+                            language: languages[2],
                           ),
                         ),
                       ),
                     ),
                   ),
+                  // Center(
+                  //   child: ListView.builder(
+                  //       itemCount: languages.length,
+                  //       itemBuilder: (context, index) {
+                  //         return ListTile(
+                  //           title: Text(languages[index]),
+                  //         );
+                  //       }),
+                  // ),
                 ],
               ),
             ),

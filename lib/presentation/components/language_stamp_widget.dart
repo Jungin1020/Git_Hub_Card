@@ -8,12 +8,12 @@ class LanguageStampWidget extends StatelessWidget {
       {Key? key,
       required this.scale,
       required this.stampColor,
-      required this.stampImagePath})
+      required this.language})
       : super(key: key);
 
   final double scale;
   final Color stampColor;
-  final String stampImagePath;
+  final String language;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class LanguageStampWidget extends StatelessWidget {
             ),
           ),
           Image.asset(
-            stampImagePath,
+            'assets/images/${language}_logo_120.png',
             scale: scale,
           ),
         ],

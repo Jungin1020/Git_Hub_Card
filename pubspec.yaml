@@ -99,9 +99,9 @@ flutter:
         - asset: assets/fonts/Noto_Sans/NotoSans-Light.ttf
           weight: 200
 
-    - family: ProfileIcons
-      fonts:
-        - asset: assets/icons/profile_icons.ttf
+#    - family: ProfileIcons
+#      fonts:
+#        - asset: assets/icons/profile_icons.ttf
 
 #     - family: Trajan Pro
 #       fonts:
