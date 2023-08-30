@@ -1,7 +1,7 @@
 import 'package:git_hub_card/data/api/github_api.dart';
 import 'package:git_hub_card/data/mapper/github_mapper.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
-import 'package:git_hub_card/domain/social_repository/social_repository.dart';
+import 'package:git_hub_card/domain/repository/social_repository.dart';
 
 class GithubRepositoryImpl implements SocialRepository {
   @override

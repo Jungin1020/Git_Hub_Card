@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/domain/social_repository/social_repo_repository.dart';
+import '../../domain/repository/social_repo_repository.dart';
+import '../../domain/repository/social_repository.dart';
 import '../../domain/social_login/social_login.dart';
-import '../../domain/social_repository/social_repository.dart';
 import '../../domain/use_case/get_icon_source_use_case.dart';
 import 'card_state.dart';
 
