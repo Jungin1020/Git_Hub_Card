@@ -1,6 +1,8 @@
 import 'package:git_hub_card/core/auth/auth_provider.dart';
+import 'package:git_hub_card/data/api/devicon_api.dart';
 import 'package:git_hub_card/data/login/github_login.dart';
 import 'package:git_hub_card/data/repository/github_repository_impl.dart';
+import 'package:git_hub_card/data/repository/logo_repository_impl.dart';
 import 'package:git_hub_card/presentation/card/card_screen.dart';
 import 'package:git_hub_card/presentation/login/login_screen.dart';
 import 'package:git_hub_card/presentation/login/login_view_model.dart';
@@ -8,7 +10,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../data/repository/github_repo_repository_impl.dart';
-import '../domain/use_case/get_icon_source_use_case.dart';
 import '../presentation/card/card_view_model.dart';
 
 final router = GoRouter(
@@ -40,7 +41,7 @@ final router = GoRouter(
                 GithubRepositoryImpl(),
                 GithubLogin(),
                 GithubRepoRepositoryImpl(),
-                GetIconSourceUseCase(),
+                LogoRepositoryImpl(DeviconApi()),
               ),
             ),
           ],

@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
 import 'package:git_hub_card/domain/model/current_user_repo.dart';
+import 'package:git_hub_card/domain/model/logo.dart';
 
 part 'card_state.freezed.dart';
 
@@ -15,6 +16,7 @@ class CardState with _$CardState {
     @Default('') String token,
     CurrentUser? currentUser,
     List<CurrentUserRepo>? currentUserRepo,
+    List<Logo>? logos,
   }) = _CardState;
 
   factory CardState.fromJson(Map<String, Object?> json) =>

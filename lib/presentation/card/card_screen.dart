@@ -10,9 +10,14 @@ import 'package:widget_mask/widget_mask.dart';
 import '../components/bottom_menu_widget.dart';
 import 'component/card_widget.dart';
 
-class CardScreen extends StatelessWidget {
+class CardScreen extends StatefulWidget {
   const CardScreen({Key? key}) : super(key: key);
 
+  @override
+  State<CardScreen> createState() => _CardScreenState();
+}
+
+class _CardScreenState extends State<CardScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
@@ -20,8 +25,10 @@ class CardScreen extends StatelessWidget {
     final viewModel = context.watch<CardViewModel>();
     final state = viewModel.state;
     // currentUser 없으면 리턴
-    if (state.currentUser == null) {
-      return const Scaffold(backgroundColor: Color(0xff0D1116));
+    if (state.currentUser == null || state.logos == null) {
+      return Scaffold(
+        backgroundColor: Color(0xff0D1116),
+      );
     }
 
     // final languages = sortLanguagesUseCase(state.currentUserRepo!);
@@ -68,12 +75,16 @@ class CardScreen extends StatelessWidget {
                         height: 135,
                         child: Opacity(
                           opacity: 0.7,
-                          child: LanguageStampWidget(
-                            width: 64,
-                            stampColor: Colors.lightBlueAccent,
-                            language: languages[0],
-                            iconSource: viewModel.getIconSource,
-                          ),
+                          child: state.logos == null
+                              ? CircularProgressIndicator()
+                              : LanguageStampWidget(
+                                  width: 64,
+                                  stampColor: Colors.lightBlueAccent,
+                                  language: languages[0],
+                                  logo: state.logos!
+                                      .where((e) => e.name == languages[0])
+                                      .first,
+                                ),
                         ),
                       ),
                     ),
@@ -89,12 +100,16 @@ class CardScreen extends StatelessWidget {
                         height: 100,
                         child: Opacity(
                           opacity: 0.7,
-                          child: LanguageStampWidget(
-                            width: 40,
-                            stampColor: const Color(0xff3671A1),
-                            language: languages[1],
-                            iconSource: viewModel.getIconSource,
-                          ),
+                          child: state.logos == null
+                              ? null
+                              : LanguageStampWidget(
+                                  width: 40,
+                                  stampColor: const Color(0xff3671A1),
+                                  language: languages[1],
+                                  logo: state.logos!
+                                      .where((e) => e.name == languages[1])
+                                      .first,
+                                ),
                         ),
                       ),
                     ),
@@ -110,12 +125,16 @@ class CardScreen extends StatelessWidget {
                         height: 120,
                         child: Opacity(
                           opacity: 0.7,
-                          child: LanguageStampWidget(
-                            width: 56,
-                            stampColor: const Color(0xffF05033),
-                            language: languages[2],
-                            iconSource: viewModel.getIconSource,
-                          ),
+                          child: state.logos == null
+                              ? null
+                              : LanguageStampWidget(
+                                  width: 56,
+                                  stampColor: const Color(0xffF05033),
+                                  language: languages[2],
+                                  logo: state.logos!
+                                      .where((e) => e.name == languages[2])
+                                      .first,
+                                ),
                         ),
                       ),
                     ),

@@ -4,7 +4,9 @@ import 'package:git_hub_card/domain/model/logo.dart';
 import 'package:git_hub_card/domain/repository/logo_repository.dart';
 
 class LogoRepositoryImpl implements LogoRepository {
-  final _api = DeviconApi();
+  final DeviconApi _api;
+
+  LogoRepositoryImpl(this._api);
 
   @override
   Future<List<Logo>> getLogos() async {
