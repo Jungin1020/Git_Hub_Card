@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../data/repository/github_repo_repository_impl.dart';
+import '../domain/use_case/get_icon_source_use_case.dart';
 import '../presentation/card/card_view_model.dart';
 
 final router = GoRouter(
@@ -39,6 +40,7 @@ final router = GoRouter(
                 GithubRepositoryImpl(),
                 GithubLogin(),
                 GithubRepoRepositoryImpl(),
+                GetIconSourceUseCase(),
               ),
             ),
           ],

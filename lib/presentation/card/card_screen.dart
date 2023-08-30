@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:git_hub_card/domain/use_case/sort_languages_use_case.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:git_hub_card/presentation/components/language_stamp_widget.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +24,8 @@ class CardScreen extends StatelessWidget {
       return const Scaffold(backgroundColor: Color(0xff0D1116));
     }
 
-    final languages = sortLanguagesUseCase(state.currentUserRepo!);
+    // final languages = sortLanguagesUseCase(state.currentUserRepo!);
+    final languages = ['git', 'dart', 'python'];
 
     final height = MediaQuery.of(context).size.height;
     final bottomBarHeight = height / 4;
@@ -69,9 +69,10 @@ class CardScreen extends StatelessWidget {
                         child: Opacity(
                           opacity: 0.7,
                           child: LanguageStampWidget(
-                            scale: 1.65,
+                            width: 64,
                             stampColor: Colors.lightBlueAccent,
                             language: languages[0],
+                            iconSource: viewModel.getIconSource,
                           ),
                         ),
                       ),
@@ -89,9 +90,10 @@ class CardScreen extends StatelessWidget {
                         child: Opacity(
                           opacity: 0.7,
                           child: LanguageStampWidget(
-                            scale: 2.2,
+                            width: 40,
                             stampColor: const Color(0xff3671A1),
                             language: languages[1],
+                            iconSource: viewModel.getIconSource,
                           ),
                         ),
                       ),
@@ -109,9 +111,10 @@ class CardScreen extends StatelessWidget {
                         child: Opacity(
                           opacity: 0.7,
                           child: LanguageStampWidget(
-                            scale: 1.9,
+                            width: 56,
                             stampColor: const Color(0xffF05033),
                             language: languages[2],
+                            iconSource: viewModel.getIconSource,
                           ),
                         ),
                       ),
