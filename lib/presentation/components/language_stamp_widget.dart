@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_circular_text/circular_text/model.dart';
+import 'package:flutter_circular_text/circular_text/widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:git_hub_card/domain/model/logo.dart';
 import 'package:widget_mask/widget_mask.dart';
@@ -9,22 +11,27 @@ class LanguageStampWidget extends StatelessWidget {
   const LanguageStampWidget({
     Key? key,
     required this.width,
-    required this.stampColor,
     required this.language,
     required this.logo,
+    required this.stampOutlinePath,
+    required this.circularRadius,
+    required this.circularFontSize,
   }) : super(key: key);
 
   final double width;
-  final Color stampColor;
   final String language;
+  final String stampOutlinePath;
   final Logo logo;
+  final double circularRadius;
+  final double circularFontSize;
 
   @override
   Widget build(BuildContext context) {
     final iconUrl =
         "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/$language/$language-plain.svg";
-    final colorString = logo.color.replaceAll('#', '');
-    final color = Color(int.parse('FF$colorString', radix: 16));
+    // final colorString = logo.color.replaceAll('#', '');
+    // final logoColor = Color(int.parse('FF$colorString', radix: 16));
+    const stampColor = Colors.grey;
 
     return Center(
       child: Stack(
@@ -33,36 +40,103 @@ class LanguageStampWidget extends StatelessWidget {
           WidgetMask(
             blendMode: BlendMode.srcATop,
             childSaveLayer: true,
-            mask: CircleAvatar(
+            mask: const CircleAvatar(
               // radius: 100,
-              backgroundColor: color,
+              backgroundColor: stampColor,
             ),
             child: Image.asset(
-              'assets/images/stamp_outline.png',
+              stampOutlinePath,
             ),
           ),
-          // Image.asset(
-          //   'assets/images/${language}_logo_120.png',
-          //   scale: scale,
-          // ),
-          SvgPicture.network(
-            iconUrl,
-            width: width,
-            // height: 50,
+          CircularText(
+            children: [
+              TextItem(
+                text: Text(
+                  language.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: circularFontSize,
+                    color: stampColor,
+                    // color: Colors.white30,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                space: 20,
+                startAngle: 0,
+                startAngleAlignment: StartAngleAlignment.center,
+                direction: CircularTextDirection.clockwise,
+              ),
+              TextItem(
+                text: Text(
+                  language.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: circularFontSize,
+                    color: stampColor,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                space: 20,
+                startAngle: 180,
+                startAngleAlignment: StartAngleAlignment.center,
+                direction: CircularTextDirection.clockwise,
+              ),
+            ],
+            radius: circularRadius,
+            position: CircularTextPosition.outside,
+            // backgroundPaint: Paint()..color = Colors.grey.shade200,
           ),
-          // FutureBuilder<String>(
-          //   future: iconSource(language),
-          //   builder: (context, snapshot) {
-          //     if (snapshot.hasData) {
-          //       return Text(
-          //         snapshot.data.toString(),
-          //         style: TextStyle(fontSize: 20),
-          //       );
-          //     } else {
-          //       return CircularProgressIndicator();
-          //     }
-          //   },
-          // )
+          CircularText(
+            children: [
+              TextItem(
+                text: Text(
+                  '+',
+                  style: TextStyle(
+                    fontSize: circularFontSize,
+                    color: stampColor,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                space: 20,
+                startAngle: 90,
+                startAngleAlignment: StartAngleAlignment.center,
+                direction: CircularTextDirection.clockwise,
+              ),
+              TextItem(
+                text: Text(
+                  '+',
+                  style: TextStyle(
+                    fontSize: circularFontSize,
+                    color: stampColor,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                space: 20,
+                startAngle: 270,
+                startAngleAlignment: StartAngleAlignment.center,
+                direction: CircularTextDirection.clockwise,
+              ),
+            ],
+            radius: circularRadius,
+            position: CircularTextPosition.outside,
+            // backgroundPaint: Paint()..color = Colors.grey.shade200,
+          ),
+          WidgetMask(
+            blendMode: BlendMode.plus,
+            childSaveLayer: true,
+            mask: SvgPicture.network(
+              iconUrl,
+              width: width,
+              color: stampColor,
+              // colorBlendMode: BlendMode.saturation,
+              // height: 50,
+            ),
+            child: SvgPicture.network(
+              iconUrl,
+              width: width,
+              color: Colors.grey.withOpacity(0.1),
+              // colorBlendMode: BlendMode.saturation,
+              // height: 50,
+            ),
+          ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
 import 'package:git_hub_card/presentation/card/component/icon_and_info_widget.dart';
+import 'package:widget_mask/widget_mask.dart';
 
 import '../../../core/utils/utils.dart';
 
@@ -61,9 +62,28 @@ class CardWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(currentUser.avatarUrl),
-                    radius: 40,
+                  WidgetMask(
+                    blendMode: BlendMode.softLight,
+                    mask: CircleAvatar(
+                      radius: 42,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Colors.white.withOpacity(1),
+                              Colors.blueAccent.withOpacity(1)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(currentUser.avatarUrl),
+                      radius: 42,
+                    ),
                   )
                 ],
               ),

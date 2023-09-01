@@ -26,7 +26,7 @@ class _CardScreenState extends State<CardScreen> {
     final state = viewModel.state;
     // currentUser 없으면 리턴
     if (state.currentUser == null || state.logos == null) {
-      return Scaffold(
+      return const Scaffold(
         backgroundColor: Color(0xff0D1116),
       );
     }
@@ -58,82 +58,89 @@ class _CardScreenState extends State<CardScreen> {
                     childSaveLayer: true,
                     mask: Image.asset('assets/images/card_color_burn.png'),
                     child: Container(
-                      color: const Color(0xff0D1116).withOpacity(0.93),
+                      // color: const Color(0xff0D1116).withOpacity(0.91),
+                      color: const Color(0xff0D1116).withOpacity(0.89),
                       width: 308,
                       height: 554,
                     ),
                   ),
                   CardWidget(currentUser: state.currentUser!),
                   Positioned(
-                    right: 60,
-                    bottom: 125,
+                    right: 50,
+                    bottom: 135,
                     child: Transform.rotate(
                       // 90 = 1
                       angle: 45,
                       child: SizedBox(
-                        width: 135,
-                        height: 135,
-                        child: Opacity(
-                          opacity: 0.7,
-                          child: state.logos == null
-                              ? CircularProgressIndicator()
-                              : LanguageStampWidget(
-                                  width: 64,
-                                  stampColor: Colors.lightBlueAccent,
-                                  language: languages[0],
-                                  logo: state.logos!
-                                      .where((e) => e.name == languages[0])
-                                      .first,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    right: 175,
-                    bottom: 56,
-                    child: Transform.rotate(
-                      // 90 = 1
-                      angle: 2,
-                      child: SizedBox(
-                        width: 100,
-                        height: 100,
+                        width: 140,
                         child: Opacity(
                           opacity: 0.7,
                           child: state.logos == null
                               ? null
                               : LanguageStampWidget(
-                                  width: 40,
-                                  stampColor: const Color(0xff3671A1),
+                                  width: 48,
+                                  language: languages[0],
+                                  logo: state.logos!
+                                      .where((e) => e.name == languages[0])
+                                      .first,
+                                  stampOutlinePath:
+                                      'assets/images/stamp_outline_1.png',
+                                  circularRadius: 30,
+                                  circularFontSize: 12,
+                                ),
+                        ),
+                      ),
+                    ),
+                  ), // stamp1
+                  Positioned(
+                    right: 175,
+                    bottom: 60,
+                    child: Transform.rotate(
+                      // 90 = 1
+                      angle: 2,
+                      child: SizedBox(
+                        width: 100,
+                        child: Opacity(
+                          opacity: 0.6,
+                          child: state.logos == null
+                              ? null
+                              : LanguageStampWidget(
+                                  width: 30,
                                   language: languages[1],
                                   logo: state.logos!
                                       .where((e) => e.name == languages[1])
                                       .first,
+                                  stampOutlinePath:
+                                      'assets/images/stamp_outline_2.png',
+                                  circularRadius: 20,
+                                  circularFontSize: 9,
                                 ),
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    right: 122,
+                    right: 118,
                     bottom: -35,
                     child: Transform.rotate(
                       // 90 = 1
                       angle: 1.55,
                       child: SizedBox(
                         width: 120,
-                        height: 120,
                         child: Opacity(
-                          opacity: 0.7,
+                          opacity: 0.6,
                           child: state.logos == null
                               ? null
                               : LanguageStampWidget(
-                                  width: 56,
-                                  stampColor: const Color(0xffF05033),
+                                  width: 36,
                                   language: languages[2],
                                   logo: state.logos!
                                       .where((e) => e.name == languages[2])
                                       .first,
+                                  stampOutlinePath:
+                                      'assets/images/stamp_outline_3.png',
+                                  circularRadius: 26,
+                                  circularFontSize: 10,
                                 ),
                         ),
                       ),
