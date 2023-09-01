@@ -18,7 +18,7 @@ class CardWidget extends StatelessWidget {
       currentUser.location,
       currentUser.email,
       currentUser.blog,
-      currentUser.twitter
+      // currentUser.twitter
     ];
 
     return SizedBox(
@@ -40,14 +40,19 @@ class CardWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 12),
-                      Text(
-                        currentUser.name,
-                        style: TextStyle(
-                          letterSpacing: 2.0,
-                          fontFamily: 'NotoSans',
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white.withOpacity(0.8),
+                      Container(
+                        width: 240,
+                        child: Text(
+                          currentUser.name,
+                          softWrap: true,
+                          maxLines: 2,
+                          style: TextStyle(
+                            letterSpacing: 2.0,
+                            fontFamily: 'NotoSans',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white.withOpacity(0.8),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 3),

@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
-import 'package:git_hub_card/presentation/components/language_stamp_widget.dart';
+import 'package:git_hub_card/presentation/card/component/language_stamp_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_mask/widget_mask.dart';
 
-import '../components/bottom_menu_widget.dart';
+import 'component/bottom_menu_widget.dart';
 import 'component/card_widget.dart';
 
 class CardScreen extends StatefulWidget {
