@@ -8,6 +8,7 @@ class LoginViewModel with ChangeNotifier {
   LoginState get state => _state;
 
   Future<void> login() async {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
     _state = state.copyWith(
       // token: await _socialLogin.login(),
       // isLogin: true,
