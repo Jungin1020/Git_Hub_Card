@@ -67,28 +67,37 @@ class CardWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  WidgetMask(
-                    blendMode: BlendMode.softLight,
-                    mask: CircleAvatar(
-                      radius: 42,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Colors.white.withOpacity(1),
-                              Colors.blueAccent.withOpacity(1)
-                            ],
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // const CircleAvatar(
+                      //   backgroundColor: Colors.grey,
+                      //   radius: 43,
+                      // ),
+                      WidgetMask(
+                        blendMode: BlendMode.softLight,
+                        mask: CircleAvatar(
+                          radius: 42,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Colors.white,
+                                  Color(0xff4E8678),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(currentUser.avatarUrl),
+                          radius: 42,
+                        ),
                       ),
-                    ),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(currentUser.avatarUrl),
-                      radius: 42,
-                    ),
+                    ],
                   )
                 ],
               ),
