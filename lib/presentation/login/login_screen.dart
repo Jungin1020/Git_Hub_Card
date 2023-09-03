@@ -1,9 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/core/auth/auth_provider.dart';
 import 'package:git_hub_card/presentation/login/login_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'login_state.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,8 +10,17 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<LoginViewModel>();
-    final authProvider = context.watch<AuthProvider>();
-    // LoginState state = viewModel.state;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+
+    Future.delayed(
+      Duration.zero,
+      () {
+        if (user != null) {
+          context.replace('/card');
+        }
+      },
+    );
 
     return Scaffold(
         body: Column(
@@ -30,66 +38,45 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 32),
-                  switch (authProvider.isLogin) {
-                    false => GestureDetector(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 80.0),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(10), // 둥근 모서리 반경
-                              border: Border.all(
-                                color: Colors.white, // 테두리 색상
-                                width: 0.5, // 테두리 두께
-                              ),
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Sign up to Github',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'NotoSans',
-                                      fontWeight: FontWeight.w300),
-                                ),
-                                SizedBox(width: 8),
-                                Icon(
-                                  Icons.chevron_right,
-                                  color: Color(0xffEA4AAA),
-                                )
-                              ],
-                            ),
+                  GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 80.0),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10), // 둥근 모서리 반경
+                          border: Border.all(
+                            color: Colors.white, // 테두리 색상
+                            width: 0.5, // 테두리 두께
                           ),
                         ),
-                        onTap: () async {
-                          await viewModel.login();
-                          if (!context.mounted) return;
-                          await context.push('/card');
-                        },
-                      ),
-                    true => GestureDetector(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
-                          decoration: BoxDecoration(
-                            color: Colors.blue, // 버튼의 배경색
-                            borderRadius:
-                                BorderRadius.circular(20), // 둥근 모서리 반경
-                            border: Border.all(
-                              color: Colors.black, // 테두리 색상
-                              width: 2, // 테두리 두께
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(width: 4),
+                            Text(
+                              'Sign up to Github',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'NotoSans',
+                                  fontWeight: FontWeight.w300),
                             ),
-                          ),
-                          child: const Text('Github Logout'),
+                            SizedBox(width: 8),
+                            Icon(
+                              Icons.chevron_right,
+                              color: Color(0xffEA4AAA),
+                            )
+                          ],
                         ),
-                        onTap: () {
-                          // viewModel.logout();
-                        },
                       ),
-                  },
+                    ),
+                    onTap: () async {
+                      await viewModel.login();
+                      if (!context.mounted) return;
+                      await context.push('/card');
+                    },
+                  ),
                 ],
               ),
             ), // const LanguageStampWidget()
