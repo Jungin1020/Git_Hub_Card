@@ -160,12 +160,17 @@ class _CardScreenState extends State<CardScreen> {
             ),
             Positioned(
               right: 30,
-              bottom: 50,
+              // bottom: 50,
+              bottom: MediaQuery.of(context).size.height * 0.03,
               child: RotatedBox(
                 quarterTurns: 1,
                 child: Builder(
                     builder: (BuildContext context) => GestureDetector(
-                          child: const Icon(Icons.menu_open_outlined),
+                          child: const Icon(
+                            // Icons.code,
+                            Icons.bookmark_sharp,
+                            color: Colors.grey,
+                          ),
                           onTap: () {
                             viewModel.showBottomMenuBar();
                           },
