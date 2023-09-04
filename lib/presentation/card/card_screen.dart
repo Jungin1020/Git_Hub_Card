@@ -1,26 +1,33 @@
-import 'dart:ui';
-
+import 'dart:ui' as ui;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:git_hub_card/presentation/card/component/language_stamp_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:widget_mask/widget_mask.dart';
-
 import 'component/bottom_menu_widget.dart';
 import 'component/card_widget.dart';
 
-class CardScreen extends StatefulWidget {
+class CardScreen extends StatelessWidget {
   const CardScreen({Key? key}) : super(key: key);
 
   @override
-  State<CardScreen> createState() => _CardScreenState();
-}
-
-class _CardScreenState extends State<CardScreen> {
-  @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final user = auth.currentUser;
+
+    Future.delayed(
+      Duration.zero,
+      () {
+        if (user == null) {
+          context.replace('/login');
+        }
+      },
+    );
 
     final viewModel = context.watch<CardViewModel>();
     final state = viewModel.state;
@@ -177,12 +184,31 @@ class _CardScreenState extends State<CardScreen> {
                         )),
               ),
             ),
+            Positioned(
+              left: 35,
+              // bottom: 50,
+              bottom: MediaQuery.of(context).size.height * 0.03,
+              child: RotatedBox(
+                quarterTurns: 1,
+                child: Builder(
+                    builder: (BuildContext context) => GestureDetector(
+                          child: const Icon(
+                            // Icons.code,
+                            Icons.center_focus_weak_sharp,
+                            color: Colors.grey,
+                          ),
+                          onTap: () {
+                            viewModel.showBottomMenuBar();
+                          },
+                        )),
+              ),
+            ),
             AnimatedContainer(
               duration: const Duration(milliseconds: 400),
               curve: Curves.easeIn,
               child: switch (state.isBottomMenu) {
                 true => BackdropFilter(
-                    filter: ImageFilter.blur(sigmaY: 3.0, sigmaX: 3.0),
+                    filter: ui.ImageFilter.blur(sigmaY: 3.0, sigmaX: 3.0),
                     child: Container(
                       color: Colors.black.withOpacity(0.2),
                     ),

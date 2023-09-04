@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 final router = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/login',
       builder: (context, state) {
         return MultiProvider(
           providers: [
@@ -26,7 +26,7 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/card',
+      path: '/',
       builder: (context, state) {
         return MultiProvider(
           providers: [
@@ -44,53 +44,11 @@ final router = GoRouter(
         );
       },
     ),
-    // ...
+    //     GoRoute(
+    //   path: '/settings',
+    //   builder: (context, state) {
+    //     return const SettingsScreen();
+    //   },
+    // ),
   ],
 );
-
-// final router = GoRouter(
-//   routes: [
-//     GoRoute(
-//       path: '/',
-//       builder: (context, state) {
-//         final FirebaseAuth _auth = FirebaseAuth.instance;
-//
-//         final user = _auth.currentUser;
-//
-//         if (user != null) {
-//           // Firebase에 로그인한 경우 CardScreen을 표시합니다.
-//           return MultiProvider(
-//             providers: [
-//               ChangeNotifierProvider(create: (context) => AuthProvider()),
-//               ChangeNotifierProvider(
-//                 create: (context) => CardViewModel(
-//                   GithubRepositoryImpl(),
-//                   GithubLogin(),
-//                   GithubRepoRepositoryImpl(),
-//                   LogoRepositoryImpl(DeviconApi()),
-//                 ),
-//               ),
-//             ],
-//             child: const CardScreen(),
-//           );
-//         } else {
-//           // Firebase에 로그인하지 않은 경우 LoginScreen을 표시합니다.
-//           return MultiProvider(
-//             providers: [
-//               ChangeNotifierProvider(create: (context) => AuthProvider()),
-//               ChangeNotifierProvider(create: (context) => LoginViewModel()),
-//             ],
-//             child: const LoginScreen(),
-//           );
-//         }
-//       },
-//     ),
-//     // GoRouter configuration
-//     GoRoute(
-//       path: '/settings',
-//       builder: (context, state) {
-//         return const SettingsScreen();
-//       },
-//     ),
-//   ],
-// );

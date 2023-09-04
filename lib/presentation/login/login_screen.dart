@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:git_hub_card/presentation/login/login_view_model.dart';
 import 'package:go_router/go_router.dart';
@@ -10,17 +9,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<LoginViewModel>();
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final user = auth.currentUser;
-
-    Future.delayed(
-      Duration.zero,
-      () {
-        if (user != null) {
-          context.replace('/card');
-        }
-      },
-    );
 
     return Scaffold(
         body: Column(
@@ -74,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                     onTap: () async {
                       await viewModel.login();
                       if (!context.mounted) return;
-                      await context.push('/card');
+                      await context.push('/');
                     },
                   ),
                 ],
