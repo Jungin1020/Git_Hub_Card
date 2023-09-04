@@ -12,6 +12,7 @@ class LanguageStampWidget extends StatelessWidget {
     Key? key,
     required this.width,
     required this.language,
+    required this.version,
     required this.stampOutlinePath,
     required this.circularRadius,
     required this.circularFontSize,
@@ -19,6 +20,7 @@ class LanguageStampWidget extends StatelessWidget {
 
   final double width;
   final String language;
+  final String version;
   final String stampOutlinePath;
   final double circularRadius;
   final double circularFontSize;
@@ -26,7 +28,7 @@ class LanguageStampWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final iconUrl =
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/$language/$language-plain.svg";
+        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/$language/$language-$version.svg";
 
     String displayLanguage = WordSymbolSwitchUseCase().wordToSymbol(language);
     displayLanguage = LanguageFilterUseCase().filterLanguage(displayLanguage);

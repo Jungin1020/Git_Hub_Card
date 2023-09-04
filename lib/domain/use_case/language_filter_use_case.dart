@@ -14,7 +14,7 @@ class LanguageFilterUseCase {
       case 'apachekafka':
         return 'apache';
       case 'appcelerator':
-        return 'apclt';
+        return 'apcltr';
       case 'backbonejs':
         return 'bbone';
       case 'bitbucket':

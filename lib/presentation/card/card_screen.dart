@@ -7,6 +7,7 @@ import 'package:git_hub_card/presentation/card/component/language_stamp_widget.d
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widget_mask/widget_mask.dart';
+import '../../domain/use_case/sort_languages_use_case.dart';
 import 'component/bottom_menu_widget.dart';
 import 'component/card_widget.dart';
 
@@ -38,11 +39,11 @@ class CardScreen extends StatelessWidget {
       );
     }
 
-    // final languages =
-    //     sortLanguagesUseCase(state.currentUserRepo!, state.logos!);
+    final languages =
+        sortLanguagesUseCase(state.currentUserRepo!, state.logos!);
     // print(languages);
     // final languages = ['git', 'dart', 'git'];
-    final languages = ['backbonejs', 'typescript', 'git'];
+    // final languages = ['appcelerator', 'typescript', 'git'];
 
     final height = MediaQuery.of(context).size.height;
     final bottomBarHeight = height / 4;
@@ -90,6 +91,13 @@ class CardScreen extends StatelessWidget {
                               : LanguageStampWidget(
                                   width: 42,
                                   language: languages[0],
+                                  version: (state.logos!
+                                          .firstWhere(
+                                              (e) => e.name == languages[0])
+                                          .versions
+                                          .contains('plain'))
+                                      ? 'plain'
+                                      : 'original',
                                   stampOutlinePath:
                                       'assets/images/stamp_outline_1.png',
                                   circularRadius: 30,
@@ -114,6 +122,13 @@ class CardScreen extends StatelessWidget {
                               : LanguageStampWidget(
                                   width: 22,
                                   language: languages[1],
+                                  version: (state.logos!
+                                          .firstWhere(
+                                              (e) => e.name == languages[1])
+                                          .versions
+                                          .contains('plain'))
+                                      ? 'plain'
+                                      : 'original',
                                   stampOutlinePath:
                                       'assets/images/stamp_outline_2.png',
                                   circularRadius: 22,
@@ -138,6 +153,13 @@ class CardScreen extends StatelessWidget {
                               : LanguageStampWidget(
                                   width: 36,
                                   language: languages[2],
+                                  version: (state.logos!
+                                          .firstWhere(
+                                              (e) => e.name == languages[2])
+                                          .versions
+                                          .contains('plain'))
+                                      ? 'plain'
+                                      : 'original',
                                   stampOutlinePath:
                                       'assets/images/stamp_outline_3.png',
                                   circularRadius: 26,
