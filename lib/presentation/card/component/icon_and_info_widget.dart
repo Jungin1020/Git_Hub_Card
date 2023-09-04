@@ -14,12 +14,22 @@ class IconAndInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(icon, color: Colors.grey.withOpacity(0.5), size: 18),
-            SizedBox(width: 6),
-            Text(info, style: TextStyle(color: Colors.grey.withOpacity(0.5)))
+            const SizedBox(width: 6),
+            SizedBox(
+              width: 200,
+              child: Text(
+                info,
+                style: TextStyle(color: Colors.grey.withOpacity(0.5)),
+                maxLines: 2,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
       ],

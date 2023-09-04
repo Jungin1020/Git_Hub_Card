@@ -40,8 +40,8 @@ class CardWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 12),
-                      Container(
-                        width: 240,
+                      SizedBox(
+                        width: 220,
                         child: Text(
                           currentUser.name,
                           softWrap: true,
@@ -56,13 +56,18 @@ class CardWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 3),
-                      Text(
-                        currentUser.displayName,
-                        style: TextStyle(
-                          fontFamily: 'NotoSans',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey.withOpacity(0.8),
+                      SizedBox(
+                        width: 220,
+                        child: Text(
+                          currentUser.displayName,
+                          softWrap: true,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontFamily: 'NotoSans',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey.withOpacity(0.8),
+                          ),
                         ),
                       ),
                     ],
