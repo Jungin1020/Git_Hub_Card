@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text/model.dart';
 import 'package:flutter_circular_text/circular_text/widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:git_hub_card/domain/model/logo.dart';
+import 'package:git_hub_card/domain/use_case/word_symbol_switch_use_case.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 class LanguageStampWidget extends StatelessWidget {
@@ -12,7 +10,6 @@ class LanguageStampWidget extends StatelessWidget {
     Key? key,
     required this.width,
     required this.language,
-    required this.logo,
     required this.stampOutlinePath,
     required this.circularRadius,
     required this.circularFontSize,
@@ -21,7 +18,6 @@ class LanguageStampWidget extends StatelessWidget {
   final double width;
   final String language;
   final String stampOutlinePath;
-  final Logo logo;
   final double circularRadius;
   final double circularFontSize;
 
@@ -29,6 +25,7 @@ class LanguageStampWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final iconUrl =
         "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/$language/$language-plain.svg";
+    final displayLanguage = WordSymbolSwitchUseCase().wordToSymbol(language);
     // final colorString = logo.color.replaceAll('#', '');
     // final logoColor = Color(int.parse('FF$colorString', radix: 16));
     const stampColor = Colors.grey;
@@ -52,7 +49,7 @@ class LanguageStampWidget extends StatelessWidget {
             children: [
               TextItem(
                 text: Text(
-                  language.toUpperCase(),
+                  displayLanguage.toUpperCase(),
                   style: TextStyle(
                     fontSize: circularFontSize,
                     color: stampColor,
@@ -67,7 +64,7 @@ class LanguageStampWidget extends StatelessWidget {
               ),
               TextItem(
                 text: Text(
-                  language.toUpperCase(),
+                  displayLanguage.toUpperCase(),
                   style: TextStyle(
                     fontSize: circularFontSize,
                     color: stampColor,
@@ -117,7 +114,6 @@ class LanguageStampWidget extends StatelessWidget {
             ],
             radius: circularRadius,
             position: CircularTextPosition.outside,
-            // backgroundPaint: Paint()..color = Colors.grey.shade200,
           ),
           WidgetMask(
             blendMode: BlendMode.plus,
@@ -126,15 +122,11 @@ class LanguageStampWidget extends StatelessWidget {
               iconUrl,
               width: width,
               color: stampColor,
-              // colorBlendMode: BlendMode.saturation,
-              // height: 50,
             ),
             child: SvgPicture.network(
               iconUrl,
               width: width,
               color: Colors.grey.withOpacity(0.1),
-              // colorBlendMode: BlendMode.saturation,
-              // height: 50,
             ),
           ),
         ],
