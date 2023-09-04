@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_circular_text/circular_text/model.dart';
 import 'package:flutter_circular_text/circular_text/widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:git_hub_card/domain/use_case/language_filter_use_case.dart';
 import 'package:git_hub_card/domain/use_case/word_symbol_switch_use_case.dart';
 import 'package:widget_mask/widget_mask.dart';
+import 'package:http/http.dart' as http;
 
 class LanguageStampWidget extends StatelessWidget {
   const LanguageStampWidget({
@@ -25,7 +27,9 @@ class LanguageStampWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final iconUrl =
         "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/$language/$language-plain.svg";
-    final displayLanguage = WordSymbolSwitchUseCase().wordToSymbol(language);
+
+    String displayLanguage = WordSymbolSwitchUseCase().wordToSymbol(language);
+    displayLanguage = LanguageFilterUseCase().filterLanguage(displayLanguage);
     // final colorString = logo.color.replaceAll('#', '');
     // final logoColor = Color(int.parse('FF$colorString', radix: 16));
     const stampColor = Colors.grey;
@@ -57,7 +61,7 @@ class LanguageStampWidget extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                space: 20,
+                space: 18,
                 startAngle: 0,
                 startAngleAlignment: StartAngleAlignment.center,
                 direction: CircularTextDirection.clockwise,
@@ -71,7 +75,7 @@ class LanguageStampWidget extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                space: 20,
+                space: 18,
                 startAngle: 180,
                 startAngleAlignment: StartAngleAlignment.center,
                 direction: CircularTextDirection.clockwise,
@@ -92,7 +96,7 @@ class LanguageStampWidget extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                space: 20,
+                space: 18,
                 startAngle: 90,
                 startAngleAlignment: StartAngleAlignment.center,
                 direction: CircularTextDirection.clockwise,
@@ -115,22 +119,49 @@ class LanguageStampWidget extends StatelessWidget {
             radius: circularRadius,
             position: CircularTextPosition.outside,
           ),
-          WidgetMask(
-            blendMode: BlendMode.plus,
-            childSaveLayer: true,
-            mask: SvgPicture.network(
-              iconUrl,
-              width: width,
-              color: stampColor,
-            ),
-            child: SvgPicture.network(
-              iconUrl,
-              width: width,
-              color: Colors.grey.withOpacity(0.1),
-            ),
-          ),
+          //
+          // FutureBuilder(
+          //   future: loadSvg(iconUrl),
+          //   builder: (context, snapshot) {
+          //     if (snapshot.connectionState == ConnectionState.done) {
+          //       if (snapshot.hasError) {
+          //         // 아이콘 로딩 실패 시 대체 아이콘 사용
+          //         return SvgPicture.network(
+          //           iconUrl.replaceAll('-plain', '-original'),
+          //           width: width, // 너비 조절
+          //           color: stampColor, // 아이콘 색상
+          //         );
+          //       } else {
+          //         // 아이콘 로딩 성공 시 아이콘 표시
+          //         return SvgPicture.network(
+          //           iconUrl,
+          //           width: width, // 너비 조절
+          //           color: stampColor, // 아이콘 색상
+          //         );
+          //       }
+          //     } else {
+          //       // 로딩 중인 경우 프로그래스 바 표시
+          //       return CircularProgressIndicator();
+          //     }
+          //   },
+          // ),
+          //
+          SvgPicture.network(
+            iconUrl,
+            width: width,
+            color: stampColor,
+          )
         ],
       ),
+    );
+  }
+
+  Future<Widget> loadSvg(String url) async {
+    final svgString = await http.get(Uri.parse(url)); // 원격 SVG 파일을 가져옴
+    return SvgPicture.string(
+      svgString.body,
+      width: 100, // 너비 조절
+      color: Colors.blue, // 아이콘 색상
     );
   }
 }
