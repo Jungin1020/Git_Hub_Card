@@ -84,6 +84,7 @@ class ProfileScreen extends StatelessWidget {
                 itemCount: state.languages.length,
                 itemBuilder: (context, index) {
                   return ProfileInfoContainerWidget(
+                      color: const Color(0xff1e1e1e),
                       info: WordSymbolSwitchUseCase()
                           .wordToSymbol(state.languages[index])
                           .toUpperCase(),

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class ProfileInfoContainerWidget extends StatelessWidget {
   const ProfileInfoContainerWidget(
-      {Key? key, required this.info, required this.description})
+      {Key? key, required this.info, required this.description, this.color})
       : super(key: key);
   final String info;
   final String description;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class ProfileInfoContainerWidget extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Text(
                     infoString,
-                    style: const TextStyle(color: Colors.grey),
+                    style: TextStyle(color: color ?? Colors.grey),
                     softWrap: true,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
