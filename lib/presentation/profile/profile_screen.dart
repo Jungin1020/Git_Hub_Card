@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:git_hub_card/core/utils/utils.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
 import 'package:git_hub_card/domain/use_case/word_symbol_switch_use_case.dart';
 import 'package:git_hub_card/presentation/profile/components/profile_info_container_widget.dart';
@@ -89,26 +90,30 @@ class ProfileScreen extends StatelessWidget {
                       description: (index == 0) ? 'Languages' : '');
                 },
               ),
-              // Icon(Icons.add_circle_outline),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.add_circle_outline,
-                    color: Colors.blueAccent,
-                    size: 16,
-                  ),
-                  SizedBox(width: 4),
-                  Column(
-                    children: [
-                      Text(
-                        'add languages',
-                        style: TextStyle(color: Colors.blueAccent),
-                      ),
-                      SizedBox(height: 2),
-                    ],
-                  ),
-                ],
+              GestureDetector(
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.add_circle_outline,
+                      color: Colors.blueAccent,
+                      size: 16,
+                    ),
+                    SizedBox(width: 4),
+                    Column(
+                      children: [
+                        Text(
+                          'add languages',
+                          style: TextStyle(color: Colors.blueAccent),
+                        ),
+                        SizedBox(height: 2),
+                      ],
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  Utils().showDialog(context, 0);
+                },
               ),
               const SizedBox(height: 150),
             ],

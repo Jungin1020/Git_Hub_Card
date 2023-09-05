@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:git_hub_card/core/utils/utils.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:git_hub_card/presentation/card/component/language_stamp_widget.dart';
 import 'package:provider/provider.dart';
@@ -169,7 +170,7 @@ class CardScreen extends StatelessWidget {
               right: 30,
               // bottom: 50,
               // bottom: MediaQuery.of(context).size.height * 0.1,
-              bottom: ((MediaQuery.of(context).size.height - 554) ~/ 2) - 50,
+              bottom: (MediaQuery.of(context).size.height - 554) / 5,
               child: RotatedBox(
                 quarterTurns: 1,
                 child: Builder(
@@ -188,7 +189,7 @@ class CardScreen extends StatelessWidget {
             Positioned(
               left: 35,
               // bottom: 50,
-              bottom: ((MediaQuery.of(context).size.height - 554) ~/ 2) - 50,
+              bottom: (MediaQuery.of(context).size.height - 554) / 5,
               child: RotatedBox(
                 quarterTurns: 1,
                 child: Builder(
@@ -199,7 +200,7 @@ class CardScreen extends StatelessWidget {
                             color: Colors.grey,
                           ),
                           onTap: () {
-                            viewModel.showBottomMenuBar();
+                            Utils().showDialog(context, 1);
                           },
                         )),
               ),
