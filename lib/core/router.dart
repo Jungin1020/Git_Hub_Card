@@ -10,6 +10,7 @@ import 'package:git_hub_card/data/login/github_login.dart';
 import 'package:git_hub_card/core/auth/auth_provider.dart';
 import 'package:git_hub_card/data/api/devicon_api.dart';
 import 'package:git_hub_card/presentation/profile/profile_screen.dart';
+import 'package:git_hub_card/presentation/profile/profile_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +53,11 @@ final router = GoRouter(
         final currentUser =
             (state.extra! as Map<String, Object>)['currentUser'] as CurrentUser;
 
-        return ProfileScreen(currentUser: currentUser);
+        // return ProfileScreen(currentUser: currentUser);
+        return ChangeNotifierProvider(
+          create: (_) => ProfileViewModel(),
+          child: ProfileScreen(currentUser: currentUser),
+        );
       },
     ),
   ],
