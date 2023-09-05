@@ -63,8 +63,8 @@ class LanguageStampWidget extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                space: 18,
-                startAngle: 0,
+                space: 17,
+                startAngle: -90,
                 startAngleAlignment: StartAngleAlignment.center,
                 direction: CircularTextDirection.clockwise,
               ),
@@ -77,8 +77,8 @@ class LanguageStampWidget extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                space: 18,
-                startAngle: 180,
+                space: 17,
+                startAngle: 90,
                 startAngleAlignment: StartAngleAlignment.center,
                 direction: CircularTextDirection.clockwise,
               ),
@@ -98,8 +98,8 @@ class LanguageStampWidget extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                space: 18,
-                startAngle: 90,
+                space: 20,
+                startAngle: 0,
                 startAngleAlignment: StartAngleAlignment.center,
                 direction: CircularTextDirection.clockwise,
               ),
@@ -113,7 +113,7 @@ class LanguageStampWidget extends StatelessWidget {
                   ),
                 ),
                 space: 20,
-                startAngle: 270,
+                startAngle: 180,
                 startAngleAlignment: StartAngleAlignment.center,
                 direction: CircularTextDirection.clockwise,
               ),
@@ -121,33 +121,6 @@ class LanguageStampWidget extends StatelessWidget {
             radius: circularRadius,
             position: CircularTextPosition.outside,
           ),
-          //
-          // FutureBuilder(
-          //   future: loadSvg(iconUrl),
-          //   builder: (context, snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.done) {
-          //       if (snapshot.hasError) {
-          //         // 아이콘 로딩 실패 시 대체 아이콘 사용
-          //         return SvgPicture.network(
-          //           iconUrl.replaceAll('-plain', '-original'),
-          //           width: width, // 너비 조절
-          //           color: stampColor, // 아이콘 색상
-          //         );
-          //       } else {
-          //         // 아이콘 로딩 성공 시 아이콘 표시
-          //         return SvgPicture.network(
-          //           iconUrl,
-          //           width: width, // 너비 조절
-          //           color: stampColor, // 아이콘 색상
-          //         );
-          //       }
-          //     } else {
-          //       // 로딩 중인 경우 프로그래스 바 표시
-          //       return CircularProgressIndicator();
-          //     }
-          //   },
-          // ),
-          //
           SvgPicture.network(
             iconUrl,
             width: width,

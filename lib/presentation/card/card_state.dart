@@ -14,6 +14,7 @@ class CardState with _$CardState {
     @Default(false) bool isLoading,
     @Default(false) bool isBottomMenu,
     @Default('') String token,
+    @Default([]) List<String> languages,
     CurrentUser? currentUser,
     List<CurrentUserRepo>? currentUserRepo,
     List<Logo>? logos,

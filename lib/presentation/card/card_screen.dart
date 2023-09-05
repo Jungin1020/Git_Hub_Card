@@ -7,9 +7,8 @@ import 'package:git_hub_card/presentation/card/component/language_stamp_widget.d
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widget_mask/widget_mask.dart';
-import '../../domain/use_case/sort_languages_use_case.dart';
 import 'component/bottom_menu_widget.dart';
-import 'component/card_widget.dart';
+import 'component/name_and_avatar_widget.dart';
 
 class CardScreen extends StatelessWidget {
   const CardScreen({Key? key}) : super(key: key);
@@ -39,12 +38,6 @@ class CardScreen extends StatelessWidget {
       );
     }
 
-    final languages =
-        sortLanguagesUseCase(state.currentUserRepo!, state.logos!);
-    // print(languages);
-    // final languages = ['git', 'dart', 'git'];
-    // final languages = ['appcelerator', 'typescript', 'git'];
-
     final height = MediaQuery.of(context).size.height;
     final bottomBarHeight = height / 4;
 
@@ -69,7 +62,6 @@ class CardScreen extends StatelessWidget {
                     childSaveLayer: true,
                     mask: Image.asset('assets/images/card_color_burn.png'),
                     child: Container(
-                      // color: const Color(0xff0D1116).withOpacity(0.91),
                       color: const Color(0xff0D1116).withOpacity(0.89),
                       width: 308,
                       height: 554,
@@ -89,11 +81,11 @@ class CardScreen extends StatelessWidget {
                           child: state.logos == null
                               ? null
                               : LanguageStampWidget(
-                                  width: 42,
-                                  language: languages[0],
+                                  width: 36,
+                                  language: state.languages[0],
                                   version: (state.logos!
-                                          .firstWhere(
-                                              (e) => e.name == languages[0])
+                                          .firstWhere((e) =>
+                                              e.name == state.languages[0])
                                           .versions
                                           .contains('plain'))
                                       ? 'plain'
@@ -120,11 +112,11 @@ class CardScreen extends StatelessWidget {
                           child: state.logos == null
                               ? null
                               : LanguageStampWidget(
-                                  width: 22,
-                                  language: languages[1],
+                                  width: 24,
+                                  language: state.languages[1],
                                   version: (state.logos!
-                                          .firstWhere(
-                                              (e) => e.name == languages[1])
+                                          .firstWhere((e) =>
+                                              e.name == state.languages[1])
                                           .versions
                                           .contains('plain'))
                                       ? 'plain'
@@ -143,7 +135,8 @@ class CardScreen extends StatelessWidget {
                     bottom: -35,
                     child: Transform.rotate(
                       // 90 = 1
-                      angle: 1.55,
+                      // angle: 1.55,
+                      angle: 1.6,
                       child: SizedBox(
                         width: 120,
                         child: Opacity(
@@ -151,11 +144,11 @@ class CardScreen extends StatelessWidget {
                           child: state.logos == null
                               ? null
                               : LanguageStampWidget(
-                                  width: 36,
-                                  language: languages[2],
+                                  width: 28,
+                                  language: state.languages[2],
                                   version: (state.logos!
-                                          .firstWhere(
-                                              (e) => e.name == languages[2])
+                                          .firstWhere((e) =>
+                                              e.name == state.languages[2])
                                           .versions
                                           .contains('plain'))
                                       ? 'plain'
@@ -169,15 +162,6 @@ class CardScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Center(
-                  //   child: ListView.builder(
-                  //       itemCount: languages.length,
-                  //       itemBuilder: (context, index) {
-                  //         return ListTile(
-                  //           title: Text(languages[index]),
-                  //         );
-                  //       }),
-                  // ),
                 ],
               ),
             ),

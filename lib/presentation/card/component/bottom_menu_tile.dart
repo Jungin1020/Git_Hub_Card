@@ -16,7 +16,7 @@ class BottomMenuTile extends StatelessWidget {
       height: double.infinity,
       // color: Colors.blueAccent,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: RotatedBox(
           quarterTurns: 1,
           child: Row(
@@ -33,7 +33,7 @@ class BottomMenuTile extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                 ),
               ),
-              const SizedBox(width: 5),
+              const SizedBox(width: 8),
               icon,
             ],
           ),

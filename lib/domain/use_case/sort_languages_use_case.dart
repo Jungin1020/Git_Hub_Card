@@ -17,7 +17,7 @@ List<String> sortLanguagesUseCase(
   }
 
   if (languageCount.isEmpty) {
-    return [];
+    return result;
   }
   // github repos 에서 가져온 languages
   List<String> githubLanguages = languageCount.keys.toList()

@@ -40,7 +40,7 @@ class LanguageFilterUseCase {
       case 'feathersjs':
         return 'feathers';
       case 'filezilla':
-        return 'fzll';
+        return 'fzllr';
       case 'foundation':
         return 'fndn';
       case 'googlecloud':

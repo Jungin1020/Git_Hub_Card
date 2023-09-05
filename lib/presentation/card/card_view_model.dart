@@ -3,6 +3,7 @@ import 'package:git_hub_card/domain/repository/logo_repository.dart';
 import '../../domain/repository/social_repo_repository.dart';
 import '../../domain/repository/social_repository.dart';
 import '../../domain/social_login/social_login.dart';
+import '../../domain/use_case/sort_languages_use_case.dart';
 import 'card_state.dart';
 
 class CardViewModel with ChangeNotifier {
@@ -49,6 +50,7 @@ class CardViewModel with ChangeNotifier {
     _state = state.copyWith(
       currentUser: user,
       currentUserRepo: repos,
+      languages: sortLanguagesUseCase(repos, logos),
       logos: logos,
       isLoading: false,
     );

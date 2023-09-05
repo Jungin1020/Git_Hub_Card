@@ -91,7 +91,7 @@ class CardWidget extends StatelessWidget {
                                 end: Alignment.bottomRight,
                                 colors: [
                                   Colors.white,
-                                  Color(0xff4E8678),
+                                  Color(0xff49549D),
                                 ],
                               ),
                             ),
