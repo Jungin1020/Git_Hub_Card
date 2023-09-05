@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
                         fontFamily: 'NotoSans',
                         fontWeight: FontWeight.w600),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
                   GestureDetector(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 80.0),
@@ -43,12 +43,18 @@ class LoginScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(width: 4),
-                            Text(
-                              'Sign up to Github',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'NotoSans',
-                                  fontWeight: FontWeight.w300),
+                            Column(
+                              children: [
+                                Text(
+                                  'Sign up to Github',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'NotoSans',
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.white),
+                                ),
+                                SizedBox(height: 2)
+                              ],
                             ),
                             SizedBox(width: 8),
                             Icon(

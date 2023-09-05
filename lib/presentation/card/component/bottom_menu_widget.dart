@@ -51,7 +51,6 @@ class BottomMenuWidget extends StatelessWidget {
               onTap: () {
                 context.push('/profile', extra: {
                   'currentUser': currentUser,
-                  'languages': languages
                 });
               },
             ),

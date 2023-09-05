@@ -49,12 +49,10 @@ final router = GoRouter(
     GoRoute(
       path: '/profile',
       builder: (context, state) {
-        final languages =
-            (state.extra! as Map<String, Object>)['languages'] as List<String>;
         final currentUser =
             (state.extra! as Map<String, Object>)['currentUser'] as CurrentUser;
 
-        return ProfileScreen(languages: languages, currentUser: currentUser);
+        return ProfileScreen(currentUser: currentUser);
       },
     ),
   ],

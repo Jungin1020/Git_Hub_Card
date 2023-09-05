@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_hub_card/domain/repository/logo_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/repository/social_repo_repository.dart';
 import '../../domain/repository/social_repository.dart';
 import '../../domain/social_login/social_login.dart';
@@ -41,16 +42,18 @@ class CardViewModel with ChangeNotifier {
   // }
 
   Future<void> fetchUserAndLogos() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     _state = state.copyWith(isLoading: true, token: await _socialLogin.login());
 
     final user = await _repository.getUser(state.token);
     final repos = await _repoRepository.getUserRepos(user.githubReposUrl);
     final logos = await _logoRepository.getLogos();
+    await prefs.setStringList('languages', sortLanguagesUseCase(repos, logos));
 
     _state = state.copyWith(
       currentUser: user,
       currentUserRepo: repos,
-      languages: sortLanguagesUseCase(repos, logos),
+      languages: prefs.getStringList('languages')!,
       logos: logos,
       isLoading: false,
     );

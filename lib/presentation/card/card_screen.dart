@@ -168,7 +168,8 @@ class CardScreen extends StatelessWidget {
             Positioned(
               right: 30,
               // bottom: 50,
-              bottom: MediaQuery.of(context).size.height * 0.03,
+              // bottom: MediaQuery.of(context).size.height * 0.1,
+              bottom: ((MediaQuery.of(context).size.height - 554) ~/ 2) - 50,
               child: RotatedBox(
                 quarterTurns: 1,
                 child: Builder(
@@ -187,7 +188,7 @@ class CardScreen extends StatelessWidget {
             Positioned(
               left: 35,
               // bottom: 50,
-              bottom: MediaQuery.of(context).size.height * 0.03,
+              bottom: ((MediaQuery.of(context).size.height - 554) ~/ 2) - 50,
               child: RotatedBox(
                 quarterTurns: 1,
                 child: Builder(

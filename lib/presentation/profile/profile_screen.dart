@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
+import 'package:git_hub_card/domain/use_case/word_symbol_switch_use_case.dart';
 import 'package:git_hub_card/presentation/profile/components/profile_info_container_widget.dart';
+import 'package:git_hub_card/presentation/profile/profile_view_model.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen(
-      {Key? key, required this.languages, required this.currentUser})
-      : super(key: key);
+  const ProfileScreen({Key? key, required this.currentUser}) : super(key: key);
 
-  final List<String> languages;
   final CurrentUser currentUser;
 
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    final viewModel = context.watch<ProfileViewModel>();
+    final state = viewModel.state;
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -28,11 +30,14 @@ class ProfileScreen extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              CircleAvatar(
-                backgroundImage: NetworkImage(currentUser.avatarUrl),
-                radius: 48,
+              Opacity(
+                opacity: 0.9,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(currentUser.avatarUrl),
+                  radius: 48,
+                ),
               ),
-              SizedBox(height: 18),
+              const SizedBox(height: 18),
               ProfileInfoContainerWidget(
                 info: currentUser.name,
                 description: 'Name',
@@ -41,14 +46,14 @@ class ProfileScreen extends StatelessWidget {
                 info: currentUser.displayName,
                 description: 'Display name',
               ),
-              SizedBox(height: 8),
-              Container(
+              const SizedBox(height: 8),
+              SizedBox(
                 width: width * 0.8,
                 child: Divider(
                   color: Colors.grey.withOpacity(0.2),
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               ProfileInfoContainerWidget(
                 info: currentUser.email,
                 description: 'Email',
@@ -65,6 +70,47 @@ class ProfileScreen extends StatelessWidget {
                 info: currentUser.blog,
                 description: 'Blog',
               ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: width * 0.8,
+                child: Divider(
+                  color: Colors.grey.withOpacity(0.2),
+                ),
+              ),
+              const SizedBox(height: 8),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: state.languages.length,
+                itemBuilder: (context, index) {
+                  return ProfileInfoContainerWidget(
+                      info: WordSymbolSwitchUseCase()
+                          .wordToSymbol(state.languages[index])
+                          .toUpperCase(),
+                      description: (index == 0) ? 'Languages' : '');
+                },
+              ),
+              // Icon(Icons.add_circle_outline),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.add_circle_outline,
+                    color: Colors.blueAccent,
+                    size: 16,
+                  ),
+                  SizedBox(width: 4),
+                  Column(
+                    children: [
+                      Text(
+                        'add languages',
+                        style: TextStyle(color: Colors.blueAccent),
+                      ),
+                      SizedBox(height: 2),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 150),
             ],
           ),
         ),

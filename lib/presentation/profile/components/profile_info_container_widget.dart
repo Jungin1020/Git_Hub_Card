@@ -11,26 +11,29 @@ class ProfileInfoContainerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final bool isInfoEmpty = info == '';
+    final bool isDescriptionEmpty = description == '';
     final infoString = isInfoEmpty
         ? 'You can register your ${description.toLowerCase()} at GitHub'
         : info;
 
     return Column(
       children: [
-        Row(
-          children: [
-            SizedBox(
-              width: width * 0.1,
-            ),
-            Text(
-              description,
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xff494949)),
-            )
-          ],
-        ),
+        isDescriptionEmpty
+            ? const SizedBox()
+            : Row(
+                children: [
+                  SizedBox(
+                    width: width * 0.1,
+                  ),
+                  Text(
+                    description,
+                    style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff494949)),
+                  )
+                ],
+              ),
         const SizedBox(height: 3),
         Container(
           height: 48,
