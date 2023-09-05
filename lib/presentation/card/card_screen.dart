@@ -224,7 +224,11 @@ class CardScreen extends StatelessWidget {
               // left: 0,
               curve: Curves.fastOutSlowIn,
               duration: const Duration(milliseconds: 400),
-              child: BottomMenuWidget(bottomBarHeight: bottomBarHeight),
+              child: BottomMenuWidget(
+                bottomBarHeight: bottomBarHeight,
+                languages: state.languages,
+                currentUser: state.currentUser!,
+              ),
             ),
             GestureDetector(
               child: Column(

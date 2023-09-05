@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      themeMode: ThemeMode.dark,
-      darkTheme: ThemeData.dark(),
+      // themeMode: ThemeMode.dark,
+      // darkTheme: ThemeData.dark(),
       // home: ChangeNotifierProvider(
       //   create: (_) =>
       //       LoginViewModel(GithubRepositoryImpl(FirebaseAuth.instance)),
