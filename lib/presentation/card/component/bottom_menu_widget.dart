@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:git_hub_card/core/utils/utils.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
 import 'package:go_router/go_router.dart';
+import '../../../domain/model/logo.dart';
 import 'bottom_menu_tile.dart';
 
 class BottomMenuWidget extends StatelessWidget {
   const BottomMenuWidget(
       {Key? key,
       required this.bottomBarHeight,
-      required this.languages,
-      required this.currentUser})
+      // required this.languages,
+      required this.currentUser,
+      required this.logos})
       : super(key: key);
 
   final double bottomBarHeight;
-  final List<String> languages;
+  final List<Logo> logos;
+  // final List<String> languages;
   final CurrentUser currentUser;
 
   @override
@@ -37,6 +41,9 @@ class BottomMenuWidget extends StatelessWidget {
                   size: 20,
                 ),
               ),
+              onTap: () {
+                Utils().showDialog(context, 1);
+              },
             ),
             const SizedBox(width: 20),
             GestureDetector(
@@ -51,6 +58,7 @@ class BottomMenuWidget extends StatelessWidget {
               onTap: () {
                 context.push('/profile', extra: {
                   'currentUser': currentUser,
+                  'logos': logos,
                 });
               },
             ),

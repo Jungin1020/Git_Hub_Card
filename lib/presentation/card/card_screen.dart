@@ -18,17 +18,21 @@ class CardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final user = auth.currentUser;
+    try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final user = auth.currentUser;
 
-    Future.delayed(
-      Duration.zero,
-      () {
-        if (user == null) {
-          context.replace('/login');
-        }
-      },
-    );
+      Future.delayed(
+        Duration.zero,
+        () {
+          if (user == null) {
+            context.replace('/login');
+          }
+        },
+      );
+    } catch (e) {
+      print('네트워크에러');
+    }
 
     final viewModel = context.watch<CardViewModel>();
     final state = viewModel.state;
@@ -228,7 +232,8 @@ class CardScreen extends StatelessWidget {
               duration: const Duration(milliseconds: 400),
               child: BottomMenuWidget(
                 bottomBarHeight: bottomBarHeight,
-                languages: state.languages,
+                // languages: state.languages,
+                logos: state.logos!,
                 currentUser: state.currentUser!,
               ),
             ),

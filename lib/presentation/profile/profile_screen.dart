@@ -1,16 +1,35 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:git_hub_card/core/utils/utils.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
+import 'package:git_hub_card/domain/model/logo.dart';
 import 'package:git_hub_card/domain/use_case/word_symbol_switch_use_case.dart';
 import 'package:git_hub_card/presentation/profile/components/profile_info_container_widget.dart';
 import 'package:git_hub_card/presentation/profile/profile_view_model.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key, required this.currentUser}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen(
+      {Key? key, required this.currentUser, required this.logos})
+      : super(key: key);
 
   final CurrentUser currentUser;
+  final List<Logo> logos;
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  FixedExtentScrollController _baseScrollController =
+      FixedExtentScrollController();
+
+  @override
+  void dispose() {
+    _baseScrollController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,17 +53,17 @@ class ProfileScreen extends StatelessWidget {
               Opacity(
                 opacity: 0.9,
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(currentUser.avatarUrl),
+                  backgroundImage: NetworkImage(widget.currentUser.avatarUrl),
                   radius: 48,
                 ),
               ),
               const SizedBox(height: 18),
               ProfileInfoContainerWidget(
-                info: currentUser.name,
+                info: widget.currentUser.name,
                 description: 'Name',
               ),
               ProfileInfoContainerWidget(
-                info: currentUser.displayName,
+                info: widget.currentUser.displayName,
                 description: 'Display name',
               ),
               const SizedBox(height: 8),
@@ -56,19 +75,19 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               ProfileInfoContainerWidget(
-                info: currentUser.email,
+                info: widget.currentUser.email,
                 description: 'Email',
               ),
               ProfileInfoContainerWidget(
-                info: currentUser.company,
+                info: widget.currentUser.company,
                 description: 'Company',
               ),
               ProfileInfoContainerWidget(
-                info: currentUser.location,
+                info: widget.currentUser.location,
                 description: 'Location',
               ),
               ProfileInfoContainerWidget(
-                info: currentUser.blog,
+                info: widget.currentUser.blog,
                 description: 'Blog',
               ),
               const SizedBox(height: 8),
@@ -83,12 +102,67 @@ class ProfileScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: state.languages.length,
                 itemBuilder: (context, index) {
-                  return ProfileInfoContainerWidget(
-                      color: const Color(0xff1e1e1e),
-                      info: WordSymbolSwitchUseCase()
-                          .wordToSymbol(state.languages[index])
-                          .toUpperCase(),
-                      description: (index == 0) ? 'Languages' : '');
+                  return GestureDetector(
+                    child: ProfileInfoContainerWidget(
+                        color: const Color(0xff1e1e1e),
+                        info: WordSymbolSwitchUseCase()
+                            .wordToSymbol(state.languages[index])
+                            .toUpperCase(),
+                        description: (index == 0) ? 'Languages' : ''),
+                    onTap: () {
+                      _baseScrollController.dispose();
+                      _baseScrollController = FixedExtentScrollController(
+                          // initialItem: widget.state.rates.keys
+                          initialItem: widget.logos
+                              .map((e) => e.name)
+                              .toList()
+                              .indexWhere((e) => e == state.languages[index]));
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => CupertinoActionSheet(
+                          actions: [
+                            SizedBox(
+                              height: 350,
+                              child: CupertinoPicker(
+                                scrollController: _baseScrollController,
+                                onSelectedItemChanged: (int idx) {
+                                  // widget.viewModel.onEvent(
+                                  //     MainEvent.selectBaseCode(widget
+                                  //         .state.rates.keys
+                                  //         .toList()[index]));
+                                  viewModel.updateLanguages(
+                                      widget.logos
+                                          .map((e) => e.name)
+                                          .toList()[idx],
+                                      index);
+                                  print(state.languages);
+                                },
+                                itemExtent: 64,
+                                children: widget.logos
+                                    .map((e) => e.name)
+                                    .toList()
+                                    .map(
+                                      (lang) => Center(
+                                        child: Text(WordSymbolSwitchUseCase()
+                                            .wordToSymbol(lang)),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            )
+                          ],
+                          cancelButton: CupertinoActionSheetAction(
+                            child: const Text(
+                              'Cancel',
+                              style:
+                                  TextStyle(color: CupertinoColors.activeBlue),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
               GestureDetector(

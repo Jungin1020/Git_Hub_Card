@@ -27,7 +27,7 @@ class Utils {
                 Navigator.pop(context);
               },
               child: const Text(
-                'Ok',
+                'OK',
                 style: TextStyle(color: Colors.blueAccent),
               ),
             ),
@@ -36,33 +36,33 @@ class Utils {
       ),
     );
   }
-  // void showDialog(BuildContext context) {
-  //   showCupertinoDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return Center(
-  //         child: Container(
-  //           width: 200,
-  //           height: 200,
-  //           color: Colors.white,
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               Text(
-  //                 'Custom Dialog',
-  //                 style: TextStyle(fontSize: 12),
-  //               ),
-  //               ElevatedButton(
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop(); // 다이얼로그 닫기
-  //                 },
-  //                 child: Text('Close'),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+// void showDialog(BuildContext context) {
+//   showCupertinoDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return Center(
+//         child: Container(
+//           width: 200,
+//           height: 200,
+//           color: Colors.white,
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Text(
+//                 'Custom Dialog',
+//                 style: TextStyle(fontSize: 12),
+//               ),
+//               ElevatedButton(
+//                 onPressed: () {
+//                   Navigator.of(context).pop(); // 다이얼로그 닫기
+//                 },
+//                 child: Text('Close'),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+//     },
+//   );
+// }
 }

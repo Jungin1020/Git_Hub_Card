@@ -2,6 +2,7 @@ import 'package:git_hub_card/data/repository/github_repo_repository_impl.dart';
 import 'package:git_hub_card/data/repository/github_repository_impl.dart';
 import 'package:git_hub_card/data/repository/logo_repository_impl.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
+import 'package:git_hub_card/domain/model/logo.dart';
 import 'package:git_hub_card/presentation/login/login_view_model.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:git_hub_card/presentation/login/login_screen.dart';
@@ -52,11 +53,13 @@ final router = GoRouter(
       builder: (context, state) {
         final currentUser =
             (state.extra! as Map<String, Object>)['currentUser'] as CurrentUser;
+        final logos =
+            (state.extra! as Map<String, Object>)['logos'] as List<Logo>;
 
         // return ProfileScreen(currentUser: currentUser);
         return ChangeNotifierProvider(
           create: (_) => ProfileViewModel(),
-          child: ProfileScreen(currentUser: currentUser),
+          child: ProfileScreen(currentUser: currentUser, logos: logos),
         );
       },
     ),

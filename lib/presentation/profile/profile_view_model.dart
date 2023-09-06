@@ -19,4 +19,16 @@ class ProfileViewModel with ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<void> updateLanguages(String language, int index) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> languages =
+        prefs.getStringList('languages') ?? ['git', 'git', 'git'];
+    languages[index] = language;
+    _state = state.copyWith(languages: languages);
+
+    // 여기에 shared set
+
+    notifyListeners();
+  }
 }
