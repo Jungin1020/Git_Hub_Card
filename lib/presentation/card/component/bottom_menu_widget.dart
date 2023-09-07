@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:git_hub_card/core/utils/utils.dart';
-import 'package:git_hub_card/domain/model/current_user.dart';
+import 'package:git_hub_card/presentation/card/card_state.dart';
 import 'package:go_router/go_router.dart';
-import '../../../domain/model/logo.dart';
 import 'bottom_menu_tile.dart';
 
 class BottomMenuWidget extends StatelessWidget {
-  const BottomMenuWidget(
-      {Key? key,
-      required this.bottomBarHeight,
-      // required this.languages,
-      required this.currentUser,
-      required this.logos})
-      : super(key: key);
+  const BottomMenuWidget({
+    Key? key,
+    required this.bottomBarHeight,
+    required this.state,
+    required this.fetchLanguages,
+  }) : super(key: key);
 
   final double bottomBarHeight;
-  final List<Logo> logos;
-  // final List<String> languages;
-  final CurrentUser currentUser;
+  final void Function(List<String> lang) fetchLanguages;
+
+  final CardState state;
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +53,15 @@ class BottomMenuWidget extends StatelessWidget {
                   size: 23,
                 ),
               ),
-              onTap: () {
-                context.push('/profile', extra: {
-                  'currentUser': currentUser,
-                  'logos': logos,
-                });
+              onTap: () async {
+                final List<String>? changedLanguages = await context.push(
+                  '/profile',
+                  extra: {
+                    'currentUser': state.currentUser,
+                    'logos': state.logos,
+                  },
+                );
+                fetchLanguages(changedLanguages!);
               },
             ),
             const SizedBox(width: 56),

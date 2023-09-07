@@ -7,6 +7,7 @@ import 'package:git_hub_card/domain/use_case/word_symbol_switch_use_case.dart';
 import 'package:git_hub_card/presentation/profile/components/profile_info_container_widget.dart';
 import 'package:git_hub_card/presentation/profile/profile_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen(
@@ -45,6 +46,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         elevation: 0,
         forceMaterialTransparency: true,
         // excludeHeaderSemantics: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          onPressed: () {
+            context.pop(state.languages);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(

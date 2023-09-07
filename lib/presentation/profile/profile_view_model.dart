@@ -25,9 +25,9 @@ class ProfileViewModel with ChangeNotifier {
     List<String> languages =
         prefs.getStringList('languages') ?? ['git', 'git', 'git'];
     languages[index] = language;
-    _state = state.copyWith(languages: languages);
 
-    // 여기에 shared set
+    _state = state.copyWith(languages: languages);
+    prefs.setStringList('languages', languages);
 
     notifyListeners();
   }

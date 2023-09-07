@@ -233,8 +233,10 @@ class CardScreen extends StatelessWidget {
               child: BottomMenuWidget(
                 bottomBarHeight: bottomBarHeight,
                 // languages: state.languages,
-                logos: state.logos!,
-                currentUser: state.currentUser!,
+                // logos: state.logos!,
+                // currentUser: state.currentUser!,
+                state: state,
+                fetchLanguages: viewModel.fetchLanguages,
               ),
             ),
             GestureDetector(

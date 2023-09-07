@@ -51,10 +51,10 @@ final router = GoRouter(
     GoRoute(
       path: '/profile',
       builder: (context, state) {
-        final currentUser =
-            (state.extra! as Map<String, Object>)['currentUser'] as CurrentUser;
+        final currentUser = (state.extra!
+            as Map<String, Object?>)['currentUser'] as CurrentUser;
         final logos =
-            (state.extra! as Map<String, Object>)['logos'] as List<Logo>;
+            (state.extra! as Map<String, Object?>)['logos'] as List<Logo>;
 
         // return ProfileScreen(currentUser: currentUser);
         return ChangeNotifierProvider(

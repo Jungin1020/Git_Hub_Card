@@ -48,14 +48,24 @@ class CardViewModel with ChangeNotifier {
     final user = await _repository.getUser(state.token);
     final repos = await _repoRepository.getUserRepos(user.githubReposUrl);
     final logos = await _logoRepository.getLogos();
+
     await prefs.setStringList('languages', sortLanguagesUseCase(repos, logos));
 
     _state = state.copyWith(
       currentUser: user,
       currentUserRepo: repos,
-      languages: prefs.getStringList('languages')!,
       logos: logos,
       isLoading: false,
+    );
+    notifyListeners();
+  }
+
+  Future<void> fetchLanguages(List<String> languages) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('languages', languages);
+
+    _state = state.copyWith(
+      languages: prefs.getStringList('languages')!,
     );
     notifyListeners();
   }
