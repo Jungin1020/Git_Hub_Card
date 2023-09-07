@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/core/utils/utils.dart';
+import 'package:git_hub_card/presentation/card/component/utils.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
 import 'package:git_hub_card/domain/model/logo.dart';
 import 'package:git_hub_card/domain/use_case/word_symbol_switch_use_case.dart';
@@ -37,6 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     final viewModel = context.watch<ProfileViewModel>();
     final state = viewModel.state;
+    final cupertinoDialog = CupertinoDialog();
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -133,16 +134,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: CupertinoPicker(
                                 scrollController: _baseScrollController,
                                 onSelectedItemChanged: (int idx) {
-                                  // widget.viewModel.onEvent(
-                                  //     MainEvent.selectBaseCode(widget
-                                  //         .state.rates.keys
-                                  //         .toList()[index]));
                                   viewModel.updateLanguages(
                                       widget.logos
                                           .map((e) => e.name)
                                           .toList()[idx],
                                       index);
-                                  print(state.languages);
+                                  // print(state.languages);
                                 },
                                 itemExtent: 64,
                                 children: widget.logos
@@ -194,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
                 onTap: () {
-                  Utils().showDialog(context, 0);
+                  cupertinoDialog.showDialog(context, 0);
                 },
               ),
               const SizedBox(height: 150),

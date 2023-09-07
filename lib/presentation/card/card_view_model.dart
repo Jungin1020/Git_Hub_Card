@@ -49,12 +49,15 @@ class CardViewModel with ChangeNotifier {
     final repos = await _repoRepository.getUserRepos(user.githubReposUrl);
     final logos = await _logoRepository.getLogos();
 
-    await prefs.setStringList('languages', sortLanguagesUseCase(repos, logos));
+    prefs.getStringList('languages') ??
+        await prefs.setStringList(
+            'languages', sortLanguagesUseCase(repos, logos));
 
     _state = state.copyWith(
       currentUser: user,
       currentUserRepo: repos,
       logos: logos,
+      languages: prefs.getStringList('languages')!,
       isLoading: false,
     );
     notifyListeners();
@@ -63,11 +66,18 @@ class CardViewModel with ChangeNotifier {
   Future<void> fetchLanguages(List<String> languages) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('languages', languages);
+    // print(prefs.getStringList('languages'));
 
     _state = state.copyWith(
       languages: prefs.getStringList('languages')!,
     );
     notifyListeners();
+  }
+
+  Future<void> removePreferences() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('languages');
+    // print('removed ${prefs.getStringList('languages')}');
   }
 
   void showBottomMenuBar() {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/core/utils/utils.dart';
+import 'package:git_hub_card/presentation/card/component/utils.dart';
 import 'package:git_hub_card/presentation/card/card_state.dart';
 import 'package:go_router/go_router.dart';
 import 'bottom_menu_tile.dart';
@@ -20,6 +20,8 @@ class BottomMenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final cupertinoDialog = CupertinoDialog();
+
     return Container(
       color: const Color(0xff0D1116).withOpacity(0.8),
       height: bottomBarHeight,
@@ -40,7 +42,7 @@ class BottomMenuWidget extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Utils().showDialog(context, 1);
+                cupertinoDialog.showDialog(context, 1);
               },
             ),
             const SizedBox(width: 20),
