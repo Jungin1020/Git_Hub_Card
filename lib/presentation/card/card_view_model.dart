@@ -3,7 +3,6 @@ import 'package:git_hub_card/domain/repository/logo_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/repository/social_repo_repository.dart';
 import '../../domain/repository/social_repository.dart';
-import '../../domain/social_login/social_login.dart';
 import '../../domain/use_case/sort_languages_use_case.dart';
 import 'card_state.dart';
 
@@ -11,14 +10,11 @@ class CardViewModel with ChangeNotifier {
   final SocialRepository _repository;
   final SocialRepoRepository _repoRepository;
   final LogoRepository _logoRepository;
+  final String token;
 
-  final SocialLogin _socialLogin;
-
-  CardViewModel(this._repository, this._socialLogin, this._repoRepository,
-      this._logoRepository) {
-    // fetchUser();
-    // getLogos();
-    fetchUserAndLogos();
+  CardViewModel(this._repository, this._repoRepository, this._logoRepository,
+      this.token) {
+    fetchUserAndLogos(token);
   }
 
   CardState _state = const CardState();
@@ -41,11 +37,11 @@ class CardViewModel with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fetchUserAndLogos() async {
+  Future<void> fetchUserAndLogos(String token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _state = state.copyWith(isLoading: true, token: await _socialLogin.login());
+    _state = state.copyWith(isLoading: true);
 
-    final user = await _repository.getUser(state.token);
+    final user = await _repository.getUser(token);
     final repos = await _repoRepository.getUserRepos(user.githubReposUrl);
     final logos = await _logoRepository.getLogos();
 
@@ -66,7 +62,6 @@ class CardViewModel with ChangeNotifier {
   Future<void> fetchLanguages(List<String> languages) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('languages', languages);
-    // print(prefs.getStringList('languages'));
 
     _state = state.copyWith(
       languages: prefs.getStringList('languages')!,
@@ -77,7 +72,6 @@ class CardViewModel with ChangeNotifier {
   Future<void> removePreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('languages');
-    // print('removed ${prefs.getStringList('languages')}');
   }
 
   void showBottomMenuBar() {

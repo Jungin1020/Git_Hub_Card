@@ -66,11 +66,11 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      await viewModel.login();
+                      final token = await viewModel.login();
                       if (!context.mounted) {
                         return;
                       }
-                      await context.push('/');
+                      await context.push('/', extra: {'token': token});
                     },
                   ),
                 ],

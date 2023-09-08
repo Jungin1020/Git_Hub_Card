@@ -5,12 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:git_hub_card/presentation/card/component/cupertino_dialog.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 import 'component/bottom_menu_widget.dart';
 import 'component/card_widget.dart';
 
 class CardScreen extends StatefulWidget {
-  const CardScreen({Key? key}) : super(key: key);
+  const CardScreen({Key? key, required this.token}) : super(key: key);
+
+  final String token;
 
   @override
   State<CardScreen> createState() => _CardScreenState();
@@ -33,8 +34,10 @@ class _CardScreenState extends State<CardScreen> {
         Duration.zero,
         () {
           if (user == null) {
-            print('여기 찍음');
-            context.replace('/login');
+            // context.replace('/login');
+            return const Scaffold(
+              backgroundColor: Color(0xff0D1116),
+            );
           }
         },
       );

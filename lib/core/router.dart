@@ -23,7 +23,8 @@ final router = GoRouter(
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => AuthProvider()),
-            ChangeNotifierProvider(create: (context) => LoginViewModel()),
+            ChangeNotifierProvider(
+                create: (context) => LoginViewModel(GithubLogin())),
           ],
           child: const LoginScreen(),
         );
@@ -32,20 +33,34 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) {
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (context) => AuthProvider()),
-            ChangeNotifierProvider(
-              create: (context) => CardViewModel(
-                GithubRepositoryImpl(),
-                GithubLogin(),
-                GithubRepoRepositoryImpl(),
-                LogoRepositoryImpl(DeviconApi()),
+        if (state.extra == null) {
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => AuthProvider()),
+              ChangeNotifierProvider(
+                  create: (context) => LoginViewModel(GithubLogin())),
+            ],
+            child: const LoginScreen(),
+          );
+        } else {
+          final token =
+              (state.extra as Map<String, Object?>)['token'] as String;
+
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (context) => AuthProvider()),
+              ChangeNotifierProvider(
+                create: (context) => CardViewModel(
+                  GithubRepositoryImpl(),
+                  GithubRepoRepositoryImpl(),
+                  LogoRepositoryImpl(DeviconApi()),
+                  token,
+                ),
               ),
-            ),
-          ],
-          child: const CardScreen(),
-        );
+            ],
+            child: CardScreen(token: token),
+          );
+        }
       },
     ),
     GoRoute(
