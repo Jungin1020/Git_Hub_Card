@@ -58,7 +58,7 @@ final router = GoRouter(
 
         // return ProfileScreen(currentUser: currentUser);
         return ChangeNotifierProvider(
-          create: (_) => ProfileViewModel(),
+          create: (_) => ProfileViewModel(GithubLogin()),
           child: ProfileScreen(currentUser: currentUser, logos: logos),
         );
       },

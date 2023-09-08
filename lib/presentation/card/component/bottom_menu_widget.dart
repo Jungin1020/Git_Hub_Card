@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/presentation/card/component/utils.dart';
+import 'package:git_hub_card/presentation/card/component/cupertino_dialog.dart';
 import 'package:git_hub_card/presentation/card/card_state.dart';
 import 'package:go_router/go_router.dart';
 import 'bottom_menu_tile.dart';

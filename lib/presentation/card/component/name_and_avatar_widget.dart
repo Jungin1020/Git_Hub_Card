@@ -4,8 +4,9 @@ import 'package:git_hub_card/presentation/card/component/icon_and_info_widget.da
 import 'package:git_hub_card/presentation/card/component/info_icons.dart';
 import 'package:widget_mask/widget_mask.dart';
 
-class CardWidget extends StatelessWidget {
-  const CardWidget({Key? key, required this.currentUser}) : super(key: key);
+class NameAndAvatarWidget extends StatelessWidget {
+  const NameAndAvatarWidget({Key? key, required this.currentUser})
+      : super(key: key);
   final CurrentUser currentUser;
 
   @override

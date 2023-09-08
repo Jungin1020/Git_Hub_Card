@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/presentation/card/component/utils.dart';
+import 'package:git_hub_card/presentation/card/component/cupertino_dialog.dart';
 import 'package:git_hub_card/domain/model/current_user.dart';
 import 'package:git_hub_card/domain/model/logo.dart';
 import 'package:git_hub_card/domain/use_case/word_symbol_switch_use_case.dart';
@@ -106,6 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 8),
+              // languages
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: state.languages.length,
@@ -169,6 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 },
               ),
+              // add languages
               GestureDetector(
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -192,6 +194,88 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 onTap: () {
                   cupertinoDialog.showDialog(context, 0);
+                },
+              ),
+              SizedBox(height: 48),
+              // dangerous zone
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: width * 0.1,
+                      ),
+                      const Text(
+                        'Dangerous zone',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xff494949)),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 3),
+                  GestureDetector(
+                    child: Container(
+                      height: 48,
+                      width: width * 0.8,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.red.withOpacity(0.5),
+                        ),
+                        color: Colors.red.withOpacity(0.2),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 16),
+                          SizedBox(
+                            width: width * 0.7,
+                            child: const Text(
+                              'Delete account',
+                              style: TextStyle(color: Color(0xff1e1e1e)),
+                              softWrap: true,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    onTap: () {
+                      viewModel.delete();
+                      context.go('/login');
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              GestureDetector(
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.login_outlined,
+                      color: Colors.red,
+                      size: 16,
+                    ),
+                    SizedBox(width: 4),
+                    Column(
+                      children: [
+                        Text(
+                          'logout',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        SizedBox(height: 2),
+                      ],
+                    ),
+                  ],
+                ),
+                onTap: () {
+                  viewModel.logout();
+                  context.go('/login');
                 },
               ),
               const SizedBox(height: 150),

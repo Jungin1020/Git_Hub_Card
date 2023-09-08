@@ -2,17 +2,22 @@ import 'dart:ui' as ui;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:git_hub_card/presentation/card/component/utils.dart';
+import 'package:git_hub_card/presentation/card/component/cupertino_dialog.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
-import 'package:git_hub_card/presentation/card/component/language_stamp_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:widget_mask/widget_mask.dart';
 import 'component/bottom_menu_widget.dart';
-import 'component/name_and_avatar_widget.dart';
+import 'component/card_widget.dart';
 
-class CardScreen extends StatelessWidget {
+class CardScreen extends StatefulWidget {
   const CardScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CardScreen> createState() => _CardScreenState();
+}
+
+class _CardScreenState extends State<CardScreen> {
+  bool isCardTapped = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,7 @@ class CardScreen extends StatelessWidget {
         Duration.zero,
         () {
           if (user == null) {
+            print('여기 찍음');
             context.replace('/login');
           }
         },
@@ -38,15 +44,17 @@ class CardScreen extends StatelessWidget {
 
     final viewModel = context.watch<CardViewModel>();
     final state = viewModel.state;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    const double cardHeight = 554;
+    const double cardWidth = 308;
+
     // currentUser 없으면 리턴
     if (state.currentUser == null || state.logos == null) {
       return const Scaffold(
         backgroundColor: Color(0xff0D1116),
       );
     }
-
-    final height = MediaQuery.of(context).size.height;
-    final bottomBarHeight = height / 4;
 
     return Scaffold(
       body: SizedBox(
@@ -60,155 +68,50 @@ class CardScreen extends StatelessWidget {
             RotatedBox(
                 quarterTurns: 1,
                 child: Image.asset('assets/images/shadow.png')),
-            Center(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  WidgetMask(
-                    blendMode: BlendMode.colorBurn,
-                    childSaveLayer: true,
-                    mask: Image.asset('assets/images/card_color_burn.png'),
-                    child: Container(
-                      color: const Color(0xff0D1116).withOpacity(0.89),
-                      width: 308,
-                      height: 554,
-                    ),
-                  ),
-                  CardWidget(currentUser: state.currentUser!),
-                  Positioned(
-                    right: 50,
-                    bottom: 135,
-                    child: Transform.rotate(
-                      // 90 = 1
-                      angle: 45,
-                      child: SizedBox(
-                        width: 140,
-                        child: Opacity(
-                          opacity: 0.7,
-                          child: state.logos == null
-                              ? null
-                              : LanguageStampWidget(
-                                  width: 36,
-                                  language: state.languages[0],
-                                  version: (state.logos!
-                                          .firstWhere((e) =>
-                                              e.name == state.languages[0])
-                                          .versions
-                                          .contains('plain'))
-                                      ? 'plain'
-                                      : 'original',
-                                  stampOutlinePath:
-                                      'assets/images/stamp_outline_1.png',
-                                  circularRadius: 30,
-                                  circularFontSize: 11,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ), // stamp1
-                  Positioned(
-                    right: 175,
-                    bottom: 60,
-                    child: Transform.rotate(
-                      // 90 = 1
-                      angle: 2,
-                      child: SizedBox(
-                        width: 100,
-                        child: Opacity(
-                          opacity: 0.6,
-                          child: state.logos == null
-                              ? null
-                              : LanguageStampWidget(
-                                  width: 24,
-                                  language: state.languages[1],
-                                  version: (state.logos!
-                                          .firstWhere((e) =>
-                                              e.name == state.languages[1])
-                                          .versions
-                                          .contains('plain'))
-                                      ? 'plain'
-                                      : 'original',
-                                  stampOutlinePath:
-                                      'assets/images/stamp_outline_2.png',
-                                  circularRadius: 22,
-                                  circularFontSize: 9,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    right: 118,
-                    bottom: -35,
-                    child: Transform.rotate(
-                      // 90 = 1
-                      // angle: 1.55,
-                      angle: 1.6,
-                      child: SizedBox(
-                        width: 120,
-                        child: Opacity(
-                          opacity: 0.6,
-                          child: state.logos == null
-                              ? null
-                              : LanguageStampWidget(
-                                  width: 28,
-                                  language: state.languages[2],
-                                  version: (state.logos!
-                                          .firstWhere((e) =>
-                                              e.name == state.languages[2])
-                                          .versions
-                                          .contains('plain'))
-                                      ? 'plain'
-                                      : 'original',
-                                  stampOutlinePath:
-                                      'assets/images/stamp_outline_3.png',
-                                  circularRadius: 26,
-                                  circularFontSize: 10,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
+            // AnimatedOpacity(
+            //     opacity: opacity,
+            //     duration: const Duration(seconds: 10),
+            //     curve: Curves.decelerate,
+            //     child: CardWidget(state: state)),
+            CardWidget(state: state),
+            AnimatedPositioned(
               right: 30,
-              // bottom: 50,
-              // bottom: MediaQuery.of(context).size.height * 0.1,
-              bottom: (MediaQuery.of(context).size.height - 554) / 5,
+              bottom: isCardTapped ? -30 : (height - cardHeight) / 5,
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.fastOutSlowIn,
               child: RotatedBox(
                 quarterTurns: 1,
                 child: Builder(
-                    builder: (BuildContext context) => GestureDetector(
-                          child: const Icon(
-                            // Icons.code,
-                            Icons.bookmark_sharp,
-                            color: Colors.grey,
-                          ),
-                          onTap: () {
-                            viewModel.showBottomMenuBar();
-                          },
-                        )),
+                  builder: (BuildContext context) => GestureDetector(
+                    child: const Icon(
+                      Icons.bookmark_sharp,
+                      color: Colors.grey,
+                    ),
+                    onTap: () {
+                      viewModel.showBottomMenuBar();
+                    },
+                  ),
+                ),
               ),
             ),
-            Positioned(
+            AnimatedPositioned(
               left: 35,
-              // bottom: 50,
-              bottom: (MediaQuery.of(context).size.height - 554) / 5,
+              bottom: isCardTapped ? -30 : (height - cardHeight) / 5,
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.fastOutSlowIn,
               child: RotatedBox(
                 quarterTurns: 1,
                 child: Builder(
-                    builder: (BuildContext context) => GestureDetector(
-                          child: const Icon(
-                            // Icons.code,
-                            Icons.center_focus_weak_sharp,
-                            color: Colors.grey,
-                          ),
-                          onTap: () {
-                            cupertinoDialog.showDialog(context, 1);
-                          },
-                        )),
+                  builder: (BuildContext context) => GestureDetector(
+                    child: const Icon(
+                      Icons.center_focus_weak_sharp,
+                      color: Colors.grey,
+                    ),
+                    onTap: () {
+                      cupertinoDialog.showDialog(context, 1);
+                    },
+                  ),
+                ),
               ),
             ),
             AnimatedContainer(
@@ -227,16 +130,12 @@ class CardScreen extends StatelessWidget {
             AnimatedPositioned(
               bottom: switch (state.isBottomMenu) {
                 true => 0,
-                false => -(bottomBarHeight)
+                false => -(height / 4)
               },
-              // left: 0,
               curve: Curves.fastOutSlowIn,
               duration: const Duration(milliseconds: 400),
               child: BottomMenuWidget(
-                bottomBarHeight: bottomBarHeight,
-                // languages: state.languages,
-                // logos: state.logos!,
-                // currentUser: state.currentUser!,
+                bottomBarHeight: height / 4,
                 state: state,
                 fetchLanguages: viewModel.fetchLanguages,
               ),
@@ -247,7 +146,7 @@ class CardScreen extends StatelessWidget {
                   Container(
                     color: Colors.white.withOpacity(0.0),
                     width: double.infinity,
-                    height: height - (bottomBarHeight),
+                    height: height - (height / 4),
                   )
                 ],
               ),
@@ -256,7 +155,28 @@ class CardScreen extends StatelessWidget {
                   viewModel.unShowBottomMenuBar();
                 }
               },
-            )
+            ),
+            (state.isBottomMenu == false)
+                ? Positioned(
+                    top: (height - cardHeight) / 2,
+                    right: (width - cardWidth) / 2,
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      child: const SizedBox(
+                        width: cardWidth,
+                        height: cardHeight,
+                        child: Text(''),
+                      ),
+                      onTap: () {
+                        setState(
+                          () {
+                            isCardTapped = !isCardTapped;
+                          },
+                        );
+                      },
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

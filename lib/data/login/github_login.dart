@@ -26,6 +26,17 @@ class GithubLogin implements SocialLogin {
     }
   }
 
+  @override
+  Future<bool> delete() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      await auth.currentUser!.delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<UserCredential> _signInWithGitHub() async {
     // Create a new provider
     GithubAuthProvider githubProvider = GithubAuthProvider();

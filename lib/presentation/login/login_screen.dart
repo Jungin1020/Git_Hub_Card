@@ -67,7 +67,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                     onTap: () async {
                       await viewModel.login();
-                      if (!context.mounted) return;
+                      if (!context.mounted) {
+                        return;
+                      }
                       await context.push('/');
                     },
                   ),

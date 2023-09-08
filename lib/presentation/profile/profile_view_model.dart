@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:git_hub_card/presentation/profile/profile_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../domain/social_login/social_login.dart';
+
 class ProfileViewModel with ChangeNotifier {
   ProfileState _state = const ProfileState();
 
   ProfileState get state => _state;
 
-  ProfileViewModel() {
+  final SocialLogin _socialLogin;
+
+  ProfileViewModel(this._socialLogin) {
     loadSavedLanguages();
   }
 
@@ -29,6 +33,16 @@ class ProfileViewModel with ChangeNotifier {
     _state = state.copyWith(languages: languages);
     prefs.setStringList('languages', languages);
 
+    notifyListeners();
+  }
+
+  Future<void> logout() async {
+    _socialLogin.logout();
+    notifyListeners();
+  }
+
+  Future<void> delete() async {
+    _socialLogin.delete();
     notifyListeners();
   }
 }

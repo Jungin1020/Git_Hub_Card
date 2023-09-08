@@ -13,6 +13,7 @@ class CupertinoDialog {
           content: const Text('Coming in the Future'),
           actions: <CupertinoDialogAction>[
             CupertinoDialogAction(
+              isDefaultAction: false,
               onPressed: () {
                 Navigator.pop(context);
               },
