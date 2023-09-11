@@ -16,6 +16,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 final router = GoRouter(
+  initialLocation: '/card',
   routes: [
     GoRoute(
       path: '/login',
@@ -31,21 +32,8 @@ final router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/',
-      builder: (context, state) {
-        if (state.extra == null) {
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (context) => AuthProvider()),
-              ChangeNotifierProvider(
-                  create: (context) => LoginViewModel(GithubLogin())),
-            ],
-            child: const LoginScreen(),
-          );
-        } else {
-          final token =
-              (state.extra as Map<String, Object?>)['token'] as String;
-
+        path: '/card',
+        builder: (context, state) {
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(create: (context) => AuthProvider()),
@@ -54,15 +42,16 @@ final router = GoRouter(
                   GithubRepositoryImpl(),
                   GithubRepoRepositoryImpl(),
                   LogoRepositoryImpl(DeviconApi()),
-                  token,
+                  GithubLogin(),
+                  // token,
                 ),
               ),
             ],
-            child: CardScreen(token: token),
+            child: const CardScreen(),
           );
         }
-      },
-    ),
+        // },
+        ),
     GoRoute(
       path: '/profile',
       builder: (context, state) {
@@ -71,7 +60,6 @@ final router = GoRouter(
         final logos =
             (state.extra! as Map<String, Object?>)['logos'] as List<Logo>;
 
-        // return ProfileScreen(currentUser: currentUser);
         return ChangeNotifierProvider(
           create: (_) => ProfileViewModel(GithubLogin()),
           child: ProfileScreen(currentUser: currentUser, logos: logos),

@@ -38,7 +38,6 @@ class GithubLogin implements SocialLogin {
   }
 
   Future<UserCredential> _signInWithGitHub() async {
-    // Create a new provider
     GithubAuthProvider githubProvider = GithubAuthProvider();
 
     return await FirebaseAuth.instance.signInWithProvider(githubProvider);

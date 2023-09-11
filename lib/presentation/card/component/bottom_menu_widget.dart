@@ -10,10 +10,12 @@ class BottomMenuWidget extends StatelessWidget {
     required this.bottomBarHeight,
     required this.state,
     required this.fetchLanguages,
+    required this.unShowBottomMenuBar,
   }) : super(key: key);
 
   final double bottomBarHeight;
   final void Function(List<String> lang) fetchLanguages;
+  final void Function() unShowBottomMenuBar;
 
   final CardState state;
 
@@ -64,6 +66,7 @@ class BottomMenuWidget extends StatelessWidget {
                   },
                 );
                 fetchLanguages(changedLanguages!);
+                unShowBottomMenuBar();
               },
             ),
             const SizedBox(width: 56),

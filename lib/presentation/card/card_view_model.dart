@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_hub_card/domain/repository/logo_repository.dart';
+import 'package:git_hub_card/domain/social_login/social_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/repository/social_repo_repository.dart';
 import '../../domain/repository/social_repository.dart';
@@ -10,36 +11,41 @@ class CardViewModel with ChangeNotifier {
   final SocialRepository _repository;
   final SocialRepoRepository _repoRepository;
   final LogoRepository _logoRepository;
-  final String token;
+  final SocialLogin _socialLogin;
 
-  CardViewModel(this._repository, this._repoRepository, this._logoRepository,
-      this.token) {
-    fetchUserAndLogos(token);
+  CardViewModel(
+    this._repository,
+    this._repoRepository,
+    this._logoRepository,
+    this._socialLogin,
+  ) {
+    fetchUserAndLogos();
   }
 
   CardState _state = const CardState();
 
   CardState get state => _state;
 
-  // Future<void> fetchUser() async {
-  //   _state = state.copyWith(isLoading: true, token: await _socialLogin.login());
-  //   final user = await _repository.getUser(state.token);
-  //   final repos = await _repoRepository.getUserRepos(user.githubReposUrl);
-  //   _state = state.copyWith(
-  //       currentUser: user, currentUserRepo: repos, isLoading: false);
-  //   notifyListeners();
-  // }
-  //
-  // Future<void> getLogos() async {
-  //   _state = state.copyWith(isLoading: true);
-  //   final logos = await _logoRepository.getLogos();
-  //   _state = state.copyWith(isLoading: false, logos: logos);
-  //   notifyListeners();
-  // }
+  bool _disposed = false;
 
-  Future<void> fetchUserAndLogos(String token) async {
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
+
+  Future<void> fetchUserAndLogos() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     _state = state.copyWith(isLoading: true);
+
+    final token = await _socialLogin.login();
 
     final user = await _repository.getUser(token);
     final repos = await _repoRepository.getUserRepos(user.githubReposUrl);

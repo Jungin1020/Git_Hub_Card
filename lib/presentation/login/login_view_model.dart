@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../domain/social_login/social_login.dart';
 import 'login_state.dart';
@@ -12,24 +13,17 @@ class LoginViewModel with ChangeNotifier {
   LoginState get state => _state;
 
   Future<String> login() async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    _state = state.copyWith(
+      isLoading: true,
+    );
     final String token = await _socialLogin.login();
     _state = state.copyWith(
-      // token: await _socialLogin.login(),
-      // isLogin: true,
+      isLoading: false,
       loginPlatform: LoginPlatform.github,
     );
+
     notifyListeners();
 
     return token;
   }
-  //
-  // Future<void> logout() async {
-  //   // await _socialLogin.logout();
-  //   _state = state.copyWith(
-  //     // isLogin: false,
-  //     loginPlatform: LoginPlatform.none,
-  //   );
-  //   notifyListeners();
-  // }
 }

@@ -37,11 +37,15 @@ class ProfileViewModel with ChangeNotifier {
   }
 
   Future<void> logout() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('languages');
     _socialLogin.logout();
     notifyListeners();
   }
 
   Future<void> delete() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('languages');
     _socialLogin.delete();
     notifyListeners();
   }

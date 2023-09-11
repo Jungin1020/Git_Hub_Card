@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:git_hub_card/presentation/login/login_view_model.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+// import 'package:git_hub_card/presentation/login/login_view_model.dart';
+// import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<LoginViewModel>();
+    // final viewModel = context.watch<LoginViewModel>();
 
     return Scaffold(
         body: Column(
@@ -33,7 +38,8 @@ class LoginScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 20),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10), // 둥근 모서리 반경
+                          borderRadius: BorderRadius.circular(10),
+                          // 둥근 모서리 반경
                           border: Border.all(
                             color: Colors.white, // 테두리 색상
                             width: 0.5, // 테두리 두께
@@ -66,11 +72,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      final token = await viewModel.login();
-                      if (!context.mounted) {
-                        return;
-                      }
-                      await context.push('/', extra: {'token': token});
+                      context.push('/card');
                     },
                   ),
                 ],
