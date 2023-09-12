@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:git_hub_card/data/repository/github_repo_repository_impl.dart';
 import 'package:git_hub_card/data/repository/github_repository_impl.dart';
 import 'package:git_hub_card/data/repository/logo_repository_impl.dart';
@@ -15,8 +16,11 @@ import 'package:git_hub_card/presentation/profile/profile_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+final FirebaseAuth auth = FirebaseAuth.instance;
+final user = auth.currentUser;
+
 final router = GoRouter(
-  initialLocation: '/card',
+  initialLocation: (user == null) ? '/login' : '/card',
   routes: [
     GoRoute(
       path: '/login',

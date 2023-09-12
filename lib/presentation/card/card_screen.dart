@@ -1,11 +1,9 @@
 import 'dart:ui' as ui;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:git_hub_card/presentation/card/component/cupertino_dialog.dart';
 import 'package:git_hub_card/presentation/card/card_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 import 'component/bottom_menu_widget.dart';
 import 'component/card_widget.dart';
 
@@ -24,22 +22,6 @@ class _CardScreenState extends State<CardScreen> {
     final cupertinoDialog = CupertinoDialog();
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-
-    try {
-      final FirebaseAuth auth = FirebaseAuth.instance;
-      final user = auth.currentUser;
-
-      Future.delayed(
-        Duration.zero,
-        () {
-          if (user == null) {
-            context.go('/login');
-          }
-        },
-      );
-    } catch (e) {
-      print('네트워크에러');
-    }
 
     final viewModel = context.watch<CardViewModel>();
     final state = viewModel.state;
