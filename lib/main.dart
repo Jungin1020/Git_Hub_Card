@@ -9,45 +9,41 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  runApp(const MyApp());
-}
+  try {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool _isConnected = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkConnectivity();
-  }
-
-  Future<void> _checkConnectivity() async {
     final connectivityResult = await Connectivity().checkConnectivity();
-    setState(() {
-      _isConnected = (connectivityResult != ConnectivityResult.mobile);
-    });
-  }
+    bool isConnected = (connectivityResult != ConnectivityResult.none);
 
+    if (isConnected) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      runApp(const MyApp(isConnected: true));
+    } else {
+      runApp(const MyApp(isConnected: false));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key, required this.isConnected});
+
+  final bool isConnected;
+
+  // bool _isConnected = true;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
-    return switch (_isConnected) {
+    return switch (isConnected) {
       false => MaterialApp(
           home: const NoConnectionScreen(),
           debugShowCheckedModeBanner: false,
