@@ -14,13 +14,13 @@ class NoConnectionScreen extends StatelessWidget {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.3),
               const CircleAvatar(
+                radius: 64,
+                backgroundColor: Color(0xffEA4AAA),
                 child: Icon(
                   Icons.wifi_off_sharp,
                   color: Colors.white,
                   size: 48,
                 ),
-                radius: 64,
-                backgroundColor: Color(0xffEA4AAA),
               ),
 
               const SizedBox(height: 84),
@@ -43,6 +43,12 @@ class NoConnectionScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
               ),
+              // const SizedBox(height: 8),
+              // IconButton(
+              //     onPressed: () {
+              //       refresh();
+              //     },
+              //     icon: const Icon(Icons.refresh_sharp))
             ],
           ),
         ),
