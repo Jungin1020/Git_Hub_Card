@@ -10,56 +10,34 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  try {
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
-    final connectivityResult = await Connectivity().checkConnectivity();
-    bool isConnected = (connectivityResult != ConnectivityResult.none);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-    if (isConnected) {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-
-      runApp(const MyApp(isConnected: true));
-    } else {
-      runApp(const MyApp(isConnected: false));
-    }
-  } catch (e) {
-    throw Exception(e);
-  }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.isConnected});
+  const MyApp({super.key});
 
-  final bool isConnected;
+  // final bool isConnected;
 
-  // bool _isConnected = true;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
-    return switch (isConnected) {
-      false => MaterialApp(
-          home: const NoConnectionScreen(),
-          debugShowCheckedModeBanner: false,
-          title: 'GitCard',
-          theme: ThemeData(
-            useMaterial3: true,
-          ),
-        ),
-      true => MaterialApp.router(
-          routerConfig: router,
-          debugShowCheckedModeBanner: false,
-          title: 'GitCard',
-          theme: ThemeData(
-            useMaterial3: true,
-          ),
-        ),
-    };
+    return MaterialApp.router(
+      routerConfig: router,
+      debugShowCheckedModeBanner: false,
+      title: 'DevCard',
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+    );
   }
 }
