@@ -1,16 +1,30 @@
-# git_hub_card
+# Dev Card
+`App Store review in progress`
 
-Auto Create Gitnub Business Card App
+It's an app that automatically creates a business card for developers 💳
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+***
 
-A few resources to get you started if this is your first Flutter project:
+### Screen Shots
+![2208x1242](https://github.com/Jungin1020/Git_Hub_Card/assets/97022661/d5ca2234-96c9-438f-9577-ccf518ae6b95)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="https://github.com/Jungin1020/Git_Hub_Card/assets/97022661/8d648431-61d8-45fa-91cb-c86119758f7f" width="300"/></br></br>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Project Duration
+
+2023.08.20 ~ 2023.09.13
+
+### Packages
+
+    - firebase
+    - provider
+    - go_router
+    - shared_preferences
+
+### Participation
+
+I contributed fully with `100%` participation
+
+</br></br>
+
