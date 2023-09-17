@@ -1,9 +1,7 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:git_hub_card/core/router.dart';
-import 'package:git_hub_card/presentation/noConnection/noConnectionScreen.dart';
 
 import 'firebase_options.dart';
 
