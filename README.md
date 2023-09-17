@@ -1,4 +1,9 @@
 # Dev Card
+
+![Clean Architecture](https://img.shields.io/badge/Architecture-Clean-orange.svg?style=flat-square)
+![Clean Architecture](https://img.shields.io/badge/StateManagement-Provider-blue.svg?style=flat-square)
+
+
 `App Store review in progress`
 
 It's an app that automatically creates a business card for developers 💳
